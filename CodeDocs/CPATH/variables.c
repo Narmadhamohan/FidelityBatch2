@@ -1,32 +1,39 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdbool.h>
+
 
 int main(){
 
-        int sum,sub,div,mul,rem;
-        int num1 = 10;
-        int num2= 20;
-        int a =0;
-        sub = num2-num1;
-        mul = num2*num1;
-        div = num2/num1;
-        rem = num2%num1;
+    unsigned int player_age = 25;           // Unsigned int for player's age
+    int player_score = 3500;       // Unsigned int for player's score
+    signed int deduction = -20;
+    short player_rank = 5;                  // Short for player’s rank (small range)
 
-        //printf("Addition of two numbers: %d", sum);
-        //printf("Sub of two numbers: %d", sub);
-        printf("mul of two numbers: %d \n", mul);
-        printf("div of two numbers: %d \n", div);
-        printf("rem of two numbers: %d \n", rem);
+   
+
+printf("Player_age: %u \n", player_age);
+printf("player_score: %d \n", player_score);
+printf("deduction: %d \n", deduction);
+printf("player_rank: %d \n", player_rank);
+
+    float player_height = 6.2f;              // Float to hold the player's height in feet
+    double player_innings = 6.213; 
+    printf("Player Height : %.5f \n", player_height);
+    printf("Player Innings: %lf\n", player_innings);    
+
+char player_initial = 'J';              // Char for player's initial
+char player_name[50] = "Shantanu";      // String to hold the player's name
+
+    printf("Player Initial: %c\n", player_initial);
+    printf("Player Name: %s\n", player_name);
+
+    const int MAX_LIMIT = 10;
+    printf("Player MAX_LIMIT: %d\n", MAX_LIMIT);
+
+    bool is_active = true;                  // Boolean type for player's active status (true/false)
+    printf("Is Player Active: %s\n", is_active ? "Yes" : "No");
 
 
-        a += 5;  //a=a+5
-        printf("a %d\n\n",a);  
-
-
-       int total = (10 + 5) * 3;//precedence
-        int result = 10 + 2 * 3;
-	printf("total  %d\n",total);  
-        printf("result  %d\n",result );  
-
+return 0;
 
 }
