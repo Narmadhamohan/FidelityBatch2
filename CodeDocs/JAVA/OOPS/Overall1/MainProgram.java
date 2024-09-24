@@ -3,8 +3,8 @@ package com.inheritance;
 
 1. There is a student class with name, id, marks.
 2. Create abstract method to display the total marks.
-3. Create sub class RegularStudent with practical marks
-4. InternStudent with numberofProjects and projectmarks
+3. Create sub class RegularStudent with practicalmarks
+4. Create sub class InternStudent with numberofProjects and projectmarks
 5. Include calculatemarks in Regularstudent and add condition, if practicals >2 and <5, add 50% of marks as practicalmarks.
 6. For the Internstudent, marks  = eachprojectmark * no_of_projects
 7. Display both the students marks in main method.
