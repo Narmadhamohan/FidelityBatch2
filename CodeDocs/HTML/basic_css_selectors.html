@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS3 Selectors Demo</title>
+    <style>
+        /* 1. Element Type Selectors */
+        h1 {
+            color: darkblue;
+            text-align: center;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        /* 2. ID Selectors */
+        #special-header {
+            background-color: #ffeb3b;
+            color: black;
+            padding: 10px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* 3. Class Selectors */
+        .highlight {
+            background-color: lightgreen;
+            font-style: italic;
+            padding: 10px;
+        }
+
+        .warning {
+            color: red;
+            font-weight: bold;
+        }
+
+        /* 4. Grouping Selectors */
+        h2, h3, p {
+            margin-bottom: 15px;
+        }
+
+        /* 5. Descendant Selector */
+        div p {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+
+        /* 6. Attribute Selector */
+        input[type="text"] {
+            border: 2px solid #333;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        input[type="submit"] {
+            background-color: darkblue;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: darkorange;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Element Type Selector -->
+    <section>
+        <h1>Element Type Selector</h1>
+        <p>This paragraph is styled using the <strong>element type selector</strong>, which targets all <code>p</code> tags and gives them a specific font size and color.</p>
+        <p>All <code>p</code> elements will inherit the same styles defined under the element selector.</p>
+    </section>
+
+    <!-- ID Selector -->
+    <section>
+        <h1>ID Selector</h1>
+        <h2 id="special-header">This header is styled using an ID selector</h2>
+        <p>The <strong>ID selector</strong> is used to target a specific element with a unique ID. In this case, the ID <code>#special-header</code> is used to style this header uniquely.</p>
+    </section>
+
+    <!-- Class Selector -->
+    <section>
+        <h1>Class Selector</h1>
+        <p class="highlight">This paragraph is highlighted using a class selector with the class name <code>.highlight</code>.</p>
+        <p class="warning">This text is styled using a class selector with the class name <code>.warning</code>.</p>
+        <p>You can apply the same class to multiple elements to reuse the style rules.</p>
+    </section>
+
+    <!-- Grouping Selectors -->
+    <section>
+        <h1>Grouping Selector</h1>
+        <h2>This header is part of a grouped selector</h2>
+        <h3>This header is also part of a grouped selector</h3>
+        <p>This paragraph is also included in the grouped selector along with the <code>h2</code> and <code>h3</code> tags.</p>
+    </section>
+
+    <!-- Descendant Selector -->
+    <section>
+        <h1>Descendant Selector</h1>
+        <div>
+            <p>This paragraph is inside a <code>div</code> and is styled using a descendant selector, which targets <code>p</code> elements inside a <code>div</code>.</p>
+        </div>
+        <p>This paragraph is outside of the <code>div</code> and is not affected by the descendant selector.</p>
+    </section>
+
+    <!-- Attribute Selector -->
+    <section>
+        <h1>Attribute Selector</h1>
+        <form action="#">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name">
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+        <p>The <strong>attribute selector</strong> is used to style <code>input</code> elements based on their <code>type</code> attribute. For example, <code>input[type="text"]</code> and <code>input[type="submit"]</code>.</p>
+    </section>
+
+</body>
+</html>
