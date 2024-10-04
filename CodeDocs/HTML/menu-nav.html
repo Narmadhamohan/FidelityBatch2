@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Grid Layout with Menu and Animation</title>
+    <style>
+        /* CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* Grid Layout */
+        .container {
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+            grid-template-columns: 1fr;
+            min-height: 100vh;
+        }
+
+        /* Header (Menu) */
+        header {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 20px;
+            position: relative;
+        }
+
+        /* Keyframe Animation */
+        @keyframes hoverEffect {
+            0% {
+                background-color: #333;
+                color: white;
+            }
+            100% {
+                background-color: #ff8c00;
+                color: black;
+            }
+        }
+
+        /* Animated Menu on Hover */
+        nav ul li a:hover {
+            animation: hoverEffect 0.5s forwards;
+        }
+
+        /* Main Content */
+        .main {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Content */
+        .content {
+            background-color: #e0e0e0;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header and Menu -->
+        <header>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <h2>Menu</h2>
+                <ul>
+                    <li>Dashboard</li>
+                    <li>Profile</li>
+                    <li>Settings</li>
+                    <li>Logout</li>
+                </ul>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content">
+                <h1>Welcome to Our Website!</h1>
+                <p>
+                    This is the main content area where you can display important information or details about your services, products, or company.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Your Website. All rights reserved.</p>
+        </footer>
+    </div>
+
+</body>
+</html>
+
+
+
+
+
+
+.container {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+
+
+
+
+
+@keyframes hoverEffect {
+    0% {
+        background-color: #333;
+        color: white;
+    }
+    100% {
+        background-color: #ff8c00;
+        color: black;
+    }
+}
