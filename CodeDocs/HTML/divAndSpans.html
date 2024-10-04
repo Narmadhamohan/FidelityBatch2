@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Example with Div and Span</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9;
+        }
+
+        h2 {
+            color: darkblue;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse; /* Use this to collapse borders */
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 2px solid #333; /* Border for table cells */
+            padding: 10px; /* Cell padding */
+            text-align: center;
+        }
+
+        .highlight {
+            background-color: lightyellow; /* Highlight for specific cells */
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .box {
+            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #fff;
+        }
+
+        .inline-text {
+            display: inline; /* Span elements displayed inline */
+            color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>HTML Table Example</h2>
+        
+        <!-- Table with rowspan, colspan, and cell padding -->
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Price</th>
+                <th colspan="2">Availability</th> <!-- Colspan -->
+            </tr>
+            <tr>
+                <td>Apples</td>
+                <td>$2.00</td>
+                <td class="highlight" rowspan="2">In Stock</td> <!-- Rowspan -->
+                <td>10 units</td>
+            </tr>
+            <tr>
+                <td>Bananas</td>
+                <td>$1.50</td>
+                <td>20 units</td>
+            </tr>
+            <tr>
+                <td>Cherries</td>
+                <td>$3.00</td>
+                <td colspan="2">Out of Stock</td>
+            </tr>
+        </table>
+
+        <h2>Div and Span Example</h2>
+
+        <div class="box">
+            This is a <span class="inline-text">span</span> inside a <div> element.
+            <br>
+            You can use <span class="inline-text">inline text</span> to style parts of the text differently.
+        </div>
+
+        <div class="box">
+            This <span class="inline-text">box</span> has a border, padding, and margin for styling.
+        </div>
+    </div>
+
+</body>
+</html>
