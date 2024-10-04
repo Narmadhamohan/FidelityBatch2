@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aside, Article, and Section Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            gap: 20px;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            grid-column: span 2;
+            background-color: darkblue;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        aside {
+            background-color: lightgray;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        article {
+            margin-bottom: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        footer {
+            grid-column: span 2;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Aside, Article, and Section Demo</h1>
+    </header>
+
+    <!-- Aside for related information -->
+    <aside>
+        <h2>Related Topics</h2>
+        <ul>
+            <li><a href="#">Web Development</a></li>
+            <li><a href="#">CSS3 Features</a></li>
+            <li><a href="#">HTML5 Semantics</a></li>
+            <li><a href="#">JavaScript for Beginners</a></li>
+        </ul>
+    </aside>
+
+    <!-- Main content area with section and article elements -->
+    <section>
+        <h2>Main Content</h2>
+
+        <!-- First article -->
+        <article>
+            <h3>HTML5 Semantics</h3>
+            <p>HTML5 introduced new semantic elements that provide better meaning to web documents. Tags like <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, and <code>&lt;aside&gt;</code> help organize content in a more logical structure.</p>
+        </article>
+
+        <!-- Second article -->
+        <article>
+            <h3>Why Use Semantic Elements?</h3>
+            <p>Using semantic HTML5 tags improves the accessibility of web pages. Screen readers and search engines can understand and navigate through the content more effectively when appropriate tags are used.</p>
+        </article>
+
+        <!-- Third article -->
+        <article>
+            <h3>Example of Section and Article</h3>
+            <p>A <code>&lt;section&gt;</code> element is used to group content that forms a distinct part of a webpage, while an <code>&lt;article&gt;</code> represents self-contained content that could be independently distributed or reused.</p>
+        </article>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Copyright © 2024 Web Development Guide</p>
+    </footer>
+
+</body>
+</html>
