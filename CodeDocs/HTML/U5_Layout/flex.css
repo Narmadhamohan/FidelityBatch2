@@ -1,0 +1,24 @@
+body {
+    display: flex; /* Use Flexbox for body */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    min-height: 100vh; /* Full height of viewport */
+    margin: 0; /* Remove default margin */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+.flex-container {
+    display: flex; /* Enable Flexbox */
+    justify-content: space-between; /* Space between items */
+    background-color: #184c9b; /* White background */
+    padding: 20px; /* Inner spacing */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.flex-item {
+    background-color: #3498db; /* Blue background */
+    color: white; /* White text */
+    padding: 20px; /* Inner spacing */
+    border-radius: 4px; /* Rounded corners */
+    text-align: center; /* Center text */
+}

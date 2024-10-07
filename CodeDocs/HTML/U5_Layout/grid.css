@@ -1,0 +1,25 @@
+body {
+    display: flex; /* Use Flexbox for body */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    /*min-height: 100vh; /* Full height of viewport */
+    margin: 0; /* Remove default margin */
+    background-color: #f0f0f0; /* Light gray background */
+}
+
+.grid-container {
+    display: grid; /* Enable CSS Grid */
+    grid-template-columns: repeat(2	, 1fr); /* 2 columns of equal width */
+    grid-gap: 10px; /* Space between grid items */
+    background-color: #ffffff; /* White background */
+    padding: 20px; /* Inner spacing */
+    border-radius: 8px; /* Rounded corners */
+}
+
+.grid-item {
+    background-color: #e67e22; /* Orange background */
+    color: white; /* White text */
+    padding: 20px; /* Inner spacing */
+    border-radius: 4px; /* Rounded corners */
+    text-align: center; /* Center text */
+}
