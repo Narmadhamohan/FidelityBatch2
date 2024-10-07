@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Keyframes Animation Example</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #007bff;
+            opacity: 0; /* Start fully transparent */
+            animation: fadeIn 2s forwards infinite; /* Apply the fadeIn animation */
+
+
+            /*Fill Mode: The fill mode determines what styles are applied to the element after the animation has finished. The possible values for animation-fill-mode are:
+none (default): The element will not retain any styles from the animation after it finishes. It will revert back to its original styles.
+forwards: The element retains the styles defined in the last keyframe of the animation when it completes. In the case of your fadeIn animation, after 2 seconds, the element will keep the final opacity: 1 style.
+backwards: The element will apply the sty les defined in the first keyframe before the animation starts, effectively showing the first keyframe’s styles immediately.
+both: Combines forwards and backwards, meaning the styles from both the first and last keyframes are retained.*/
+        }
+
+        /* Define the keyframes for the fadeIn animation */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0; /* Fully transparent */
+            }
+            100% {
+                opacity: 1; /* Fully opaque */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="box"></div>
+</body>
+</html>
