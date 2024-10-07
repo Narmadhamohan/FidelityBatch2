@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Priority and Overriding Properties</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 20px;
+            line-height: 1.6;
+        }
+
+        h1, h3 {
+            color: #333;
+        }
+
+        h3 {
+            margin-top: 30px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .example {
+            background-color: #f4f4f4;
+            border-left: 5px solid #2196F3;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        code {
+            background-color: #f1f1f1;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 14px;
+            color: #d63384;
+        }
+
+        pre {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
+
+        hr {
+            border: none;
+            height: 1px;
+            background-color: #ddd;
+            margin: 40px 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>CSS Priority and Overriding Properties</h1>
+
+        <p>When learning CSS, it's important to understand how different properties interact with each other, and which ones take precedence or can override others. Here’s a list of <strong>important priority rules and overriding properties</strong> you should be aware of in CSS:</p>
+
+        <h3>1. CSS Specificity</h3>
+        <p><strong>What it is:</strong> Specificity determines which CSS rule is applied when multiple rules target the same element.</p>
+        <p><strong>Order of specificity (from lowest to highest):</strong></p>
+        <ul>
+            <li><strong>Type selectors</strong> (e.g., <code>div</code>, <code>p</code>) have the lowest specificity.</li>
+            <li><strong>Class selectors</strong> (e.g., <code>.class-name</code>) are more specific.</li>
+            <li><strong>ID selectors</strong> (e.g., <code>#id-name</code>) are even more specific.</li>
+            <li><strong>Inline styles</strong> (e.g., <code>style="..."</code> in the HTML) have the highest specificity, except for <code>!important</code>.</li>
+            <li><strong><code>!important</code></strong>: Overrides everything, but should be used sparingly as it can make debugging difficult.</li>
+        </ul>
+
+        <div class="example">
+            <p><strong>Example:</strong></p>
+            <pre><code>p { color: blue; }         /* Type selector */
+.highlight { color: red; } /* Class selector */
+#special { color: green; } /* ID selector */
+p#special.highlight { color: yellow; } /* More specific */</code></pre>
+        </div>
+
+        <hr>
+
+        <h3>2. Cascade and Order of Rules</h3>
+        <p><strong>What it is:</strong> When two rules have the same specificity, the last rule written in the CSS file will be applied (this is part of the <strong>Cascading</strong> in CSS).</p>
+        <p><strong>Rule:</strong> Later rules override earlier ones <strong>if they have the same specificity</strong>.</p>
+
+        <div class="example">
+            <p><strong>Example:</strong></p>
+            <pre><code>p { color: blue; } 
+p { color: green; } /* This will be applied since it's later */</code></pre>
+        </div>
+
+        <hr>
+
+        <h3>3. Inheritance</h3>
+        <p><strong>What it is:</strong> Some CSS properties are inherited by child elements, while others are not.</p>
+        <ul>
+            <li><strong>Inherited properties:</strong> <code>color</code>, <code>font-family</code>, <code>line-height</code>, <code>visibility</code>, etc.</li>
+            <li><strong>Non-inherited properties:</strong> <code>margin</code>, <code>padding</code>, <code>border</code>, <code>background</code>, <code>width</code>, etc.</li>
+        </ul>
+        <p><strong>Overriding inheritance:</strong> You can use the <code>inherit</code> keyword to explicitly make an element inherit a property.</p>
+
+        <div class="example">
+            <p><strong>Example:</strong></p>
+            <pre><code>body {
+    color: black; /* All text inside <body> inherits this color */
+}
+p {
+    color: red; /* This will override inherited color for <p> */
+}</code></pre>
+        </div>
+
+        <hr>
+
+        <!-- You can repeat similar blocks for other sections -->
+
+    </div>
+
+</body>
+</html>

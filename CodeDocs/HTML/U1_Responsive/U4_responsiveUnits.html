@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .full-screen {
+            height: 100vh; /* Full height of viewport */
+            background-color: lightgreen;
+        }
+        .half-width {
+            width: 50vw; /* 50% of viewport width */
+            background-color: lightcoral;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 2fr; /* 2 columns, one twice the size of the other */
+        }
+    </style>
+</head>
+<body>
+    <div class="full-screen">This div takes up 100% of viewport height</div>
+    <div class="half-width">This div takes up 50% of viewport width</div>
+
+    <div class="grid-container">
+        <div class="grid-item">1</div>
+        <div class="grid-item">2</div>
+    </div>
+</body>
+</html>
