@@ -1,0 +1,219 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Stop Mobile Accessories</title>
+    <style>
+
+/*
+1.HTML Structure:
+2.Input Validations:
+3. Combo Offers:
+4. CSS Styles:
+5. JavaScript Functionality:
+*/
+
+
+
+        body {
+          /*  background-image: url('background-image.jpg'); /* Replace with your background image URL */
+            background-color: pink;
+            font-weight: bold;
+        }
+	.flexdisplay{
+            padding-top: 2%;
+            padding-bottom: 2%;
+            background-color: white;
+            margin: 4% 30% 2% 30%;
+            /*top,right,bottom,left*/
+        }
+      
+        h3 {
+            color: #FFFFFF;
+            text-align: center;
+            font-family: Verdana;
+        }
+        table {
+            width: 90%;
+            margin-left: 5%;
+            margin-right: 5%;
+            border-radius: 5px;
+        }
+         td {
+            width:50%;
+            color: #08088A;
+            background-color: #FFFFFF;
+            text-align: left; /* Aligns text to the left */
+            border: 1px solid black;
+            border-radius: 4px; /* Rounded corners */
+        }
+        th{
+            padding: 7px;
+            background-color: #FFFFFF;
+            text-align: center; /* Aligns text to the left */
+            border: 1px solid black;
+            border-radius: 4px; /* Rounded corners */
+
+        }
+		priceclass{
+				padding: 0px;
+
+		}
+        label {
+            margin: 0; /* Remove any default margin */
+          
+            padding: 5px;   
+
+        }
+        input[type="text"], 
+        input[type="tel"], 
+        input[type="email"], 
+        textarea {
+            width: 80%; /* Set input and textarea width to fill the cell */
+            padding-left: 10%; /* Padding inside the input fields */
+            padding-right: 10%;
+            border: 1px solid #ccc; /* Border styling */
+            border-radius: 4px; /* Rounded corners */
+        }
+        #order {
+            color: #08088A;
+            margin-left: 45%;
+            margin-right: auto;
+            margin-top: 0%;
+            font-weight: bold;
+        }
+        #result {
+            color: #FFFFFF;
+            text-align: center;
+            font-family: Verdana;
+        }
+        .title {
+            color: #08088A;
+            text-align: center;
+        }
+   
+  .comboclass{
+            padding: 0% 20% 0% 20%;
+        }
+		
+    </style>
+    <script>
+        // Function to calculate the total cost and display the result
+        function costCalculation() {
+            var totalCost = 0;
+
+            // Check if each combo option is selected and add to total cost
+            if (document.getElementById('option1').checked) {
+                value = parseInt(document.getElementById('option1').value);
+                totalCost += value; // Price for option 1
+            }
+            if (document.getElementById('option2').checked) {
+                value = parseInt(document.getElementById('option2').value);
+                totalCost += value; // Price for option 2
+                alert(totalCost);
+            }
+            if (document.getElementById('option3').checked) {
+                value = parseInt(document.getElementById('option3').value);
+                totalCost += value; // Price for option 2
+            }
+            if (document.getElementById('option4').checked) {
+                 value = parseInt(document.getElementById('option4').value);
+                totalCost += value; // Price for option 2
+            }
+            if (document.getElementById('option5').checked) {
+                value = parseInt(document.getElementById('option5').value);
+                totalCost += value; // Price for option 2
+            }
+
+            // Apply discount if total cost is 2000 or more
+            if (totalCost >= 2000) {
+                totalCost = Math.round(totalCost * 0.8); // Apply 20% discount
+            }
+
+            // Display the result in the result div
+            var resultDiv = document.getElementById('result');
+            if (totalCost > 0) {
+                resultDiv.innerHTML = "Order has been placed successfully. You are requested to pay Rs." + totalCost + " on delivery.";
+            } else {
+                resultDiv.innerHTML = "No selection has been made.";
+            }
+
+            return false; // Prevent default form submission
+        }
+    </script>
+</head>
+<body>
+    <h2 style="text-align: center;color:white">Your e-store</h2>
+    <form class="flexdisplay">
+        <table class>
+
+            <thead>
+                <tr class="header">
+                    <th colspan="4">Enter details</th>
+                </tr>
+            </thead>
+            <tr>
+                <td><label for="name">Name:</label></td>
+                <td><input type="text" id="name" name="name" pattern="[A-Za-z\s]+" required autofocus placeholder="Enter name"></td>
+            </tr>
+           
+        </table>
+        <table>
+            <tr>
+                <td colspan="4" class="comboclass"><p>Special discount</p></td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td rowspan="5">
+                    <input type="checkbox" id="option1" name="comboOffers" value=100>
+                    Pack of colour crayons
+                    <br><br> 
+					<br>
+                    <input type="checkbox" id="option2" name="comboOffers"
+                    value=29>pack of playdough
+                    <br><br><br>
+                    <input type="checkbox" id="option3" name="comboOffers" value=50>Stencil set
+                    <br><br>
+                  <br>
+					<input type="checkbox" id="option4" name="comboOffers" value=100> 
+                      wipe and write
+                    <br><br><br>
+                    <input type="checkbox" id="option5" name="comboOffers" value=20.5>Sticky notes
+                    <br><br>
+                </td>
+                
+                 <td class="priceclass">
+            <p>Rs 100/- only</p>
+        </td>
+                
+            </tr>
+            <tr>
+                <td><p>Rs 29/- only</p></td>
+  
+            </tr>
+            <tr>
+                <td><p>Rs 50/- only</p></td>
+            </tr>
+            <tr>
+                <td><p>Rs 100/- only</p></td>
+
+            </tr>
+			 <tr>
+                <td><p>Rs 20.5/- only</p></td>
+
+            </tr>
+            <tr>
+                <td  colspan="4"><p>*Place the order</p></td>
+
+            </tr>
+        </table>
+
+    </form>
+    <input type="submit" id="order" value="PLACE ORDER" onclick="return costCalculation();">
+    <div id="result"></div>
+</body>
+</html>
+
