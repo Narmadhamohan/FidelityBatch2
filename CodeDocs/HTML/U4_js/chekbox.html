@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Number Calculation</title>
+    <script defer src="script.js"></script> <!-- External JS file -->
+</head>
+<body>
+    <h2>Select Your Items</h2>
+
+    <label>
+        <input type="checkbox" id="item1" value="100" onclick="calculateTotal()"> Item 1 (Rs. 100)
+    </label><br>
+    
+    <label>
+        <input type="checkbox" id="item2" value="200" onclick="calculateTotal()"> Item 2 (Rs. 200)
+    </label><br>
+    
+    <label>
+        <input type="checkbox" id="item3" value="300" onclick="calculateTotal()"> Item 3 (Rs. 300)
+    </label><br>
+    
+    <h3>Total Amount: Rs. <span id="totalAmount">0</span></h3>
+
+</body>
+</html>
