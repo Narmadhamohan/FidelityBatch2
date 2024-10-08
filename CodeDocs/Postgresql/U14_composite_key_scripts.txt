@@ -1,0 +1,104 @@
+-- Maintain Data integrity
+Step 1: Create the employees Table
+
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,  -- Primary key for the employee
+    name VARCHAR(100) NOT NULL,       -- Name of the employee, must not be null
+    hire_date DATE NOT NULL            -- Date the employee was hired, must not be null
+);
+
+
+Step 2: Create the roles Table with Composite Key
+CREATE TABLE roles (
+    employee_id INT NOT NULL,           -- Reference to the employee (foreign key)
+    department_id INT NOT NULL,         -- Reference to the department (foreign key)
+    role VARCHAR(50) NOT NULL,          -- Role of the employee in the department
+    PRIMARY KEY (employee_id, department_id),  -- Composite primary key
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE,  -- Foreign key constraint
+    FOREIGN KEY (department_id) REFERENCES departments(department_id) ON DELETE CASCADE  -- Foreign key constraint
+);
+Step 3: Create the departments Table
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,  -- Primary key for the department
+    department_name VARCHAR(100) NOT NULL UNIQUE  -- Name of the department, must be unique
+);
+Step 4: Insert Sample Data
+-- Insert sample departments
+INSERT INTO departments (department_name) VALUES
+('Human Resources'),
+('Engineering'),
+('Marketing');
+
+-- Insert sample employees
+INSERT INTO employees (name, hire_date) VALUES
+('Alice Johnson', '2022-01-15'),
+('Bob Smith', '2021-05-30'),
+('Charlie Brown', '2023-03-25');
+
+-- Insert sample roles
+INSERT INTO roles (employee_id, department_id, role) VALUES
+(1, 1, 'Recruiter'),           -- Alice in HR
+(1, 2, 'Software Engineer'),    -- Alice in Engineering
+(2, 1, 'HR Manager'),           -- Bob in HR
+(2, 3, 'Marketing Specialist'),  -- Bob in Marketing
+(3, 2, 'Data Scientist');        -- Charlie in Engineering
+Step 5: Demonstrate the Composite Key
+Inserting a Record with Duplicate Composite Key:
+Inserting a Valid Record:
+
+INSERT INTO roles (employee_id, department_id, role) VALUES
+(3, 1, 'HR Intern');  -- This will succeed because Charlie has no current role in HR
+
+INSERT INTO roles (employee_id, department_id, role) VALUES
+(1, 1, 'Senior Recruiter');  -- This will fail because Alice already has a role in HR
+
+SELECT * FROM roles;
+
+*************************************************Below one executed simply**************
+
+
+
+drop table employees;
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,  -- Primary key for the employee
+    name VARCHAR(100) NOT NULL,       -- Name of the employee, must not be null
+    hire_date DATE NOT NULL            -- Date the employee was hired, must not be null
+);
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,  -- Primary key for the department
+    department_name VARCHAR(100) NOT NULL UNIQUE  -- Name of the department, must be unique
+);
+CREATE TABLE roles (
+    employee_id INT NOT NULL,           -- Reference to the employee (foreign key)
+    department_id INT NOT NULL,         -- Reference to the department (foreign key)
+    role VARCHAR(50) NOT NULL,          -- Role of the employee in the department
+    PRIMARY KEY (employee_id, department_id),  -- Composite primary key
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id) ON DELETE CASCADE,  -- Foreign key constraint
+    FOREIGN KEY (department_id) REFERENCES departments(department_id) ON DELETE CASCADE  -- Foreign key constraint
+);
+
+-- Insert sample departments
+INSERT INTO departments (department_name) VALUES
+('Human Resources'),
+('Engineering'),
+('Marketing');
+
+-- Insert sample employees
+INSERT INTO employees (name, hire_date) VALUES
+('Alice Johnson', '2022-01-15'),
+('Bob Smith', '2021-05-30'),
+('Charlie Brown', '2023-03-25');
+
+-- Insert sample roles
+INSERT INTO roles (employee_id, department_id, role) VALUES
+(1, 1, 'Recruiter'),           -- Alice in HR
+(1, 2, 'Software Engineer'),    -- Alice in Engineering
+(2, 1, 'HR Manager'),           -- Bob in HR
+(2, 3, 'Marketing Specialist'),  -- Bob in Marketing
+(3, 2, 'Data Scientist');        -- Charlie in Engineering
+
+-- after executing above continous script: look for:
+select * from roles;
+INSERT INTO roles (employee_id, department_id, role) VALUES
+(1, 1, 'Recruiter');
+

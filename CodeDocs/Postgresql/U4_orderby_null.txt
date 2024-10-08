@@ -1,0 +1,51 @@
+
+
+-- use previous script data and just show:
+select * from products order by quantity ASC nulls first;
+
+
+
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price NUMERIC(10, 2),
+    quantity INT,
+    description TEXT
+);
+
+
+
+Inserting Data (Including NULL Values)
+
+
+INSERT INTO products (product_name, price, quantity, description) VALUES
+('Laptop', 999.99, 50, 'High performance laptop'),
+('Smartphone', NULL, 100, 'Latest model smartphone'),  -- price is NULL
+('Tablet', 299.99, NULL, NULL),                          -- quantity and description are NULL
+('Smartwatch', 199.99, 75, NULL);                        -- description is NULL
+****************************************************************************************************
+SELECT * FROM products
+ORDER BY price;  -- NULLs will be at the end
+
+
+SELECT * FROM products
+ORDER BY price DESC;  -- NULLs will be at the beginning
+********************************************************************************************
+SELECT * FROM products
+ORDER BY price NULLS FIRST;  -- NULLs will be at the beginning
+
+
+
+SELECT * FROM products
+ORDER BY price DESC NULLS LAST;  -- NULLs will be at the end
+************************************************************************************
+multiple columns
+
+SELECT * FROM products
+ORDER BY price NULLS LAST, quantity NULLS FIRST;  -- Sort by price (NULLs last), then by quantity (NULLs first)
+
+
+
+
+
+

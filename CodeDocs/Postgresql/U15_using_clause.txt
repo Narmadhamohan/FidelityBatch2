@@ -1,0 +1,32 @@
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    department_id INT
+);
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+Step 2: Insert Sample Data
+INSERT INTO employees (name, department_id)
+VALUES
+    ('John Doe', 1),
+    ('Jane Smith', 2),
+    ('Alice Johnson', 1),
+    ('Bob Williams', 3);
+INSERT INTO departments (department_name)
+VALUES
+    ('HR'),
+    ('Engineering'),
+    ('Marketing');
+Step 3: join using using clause:
+
+SELECT name, department_name
+FROM employees
+JOIN departments
+USING (department_id);
+
+-- SELECT name, project_name, department_name
+FROM employees
+JOIN project_assignments USING (employee_id, department_id)
+JOIN departments USING (department_id);

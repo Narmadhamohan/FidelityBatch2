@@ -1,0 +1,46 @@
+Create the employees Table
+Here’s the DDL for the employees table:
+
+sql
+Copy code
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC
+);
+
+-- Insert sample data
+INSERT INTO employees (name, salary) VALUES
+('Alice Johnson', 50000),
+('Bob Smith', 60000),
+('Charlie Brown', 30000);
+
+
+***************************
+CREATE OR REPLACE PROCEDURE update_salary(emp_id INT, new_salary NUMERIC)
+LANGUAGE plpgsql AS $$
+BEGIN
+    -- Try to update the employee's salary
+    UPDATE employees
+    SET salary = new_salary
+    WHERE employee_id = emp_id;
+    
+    -- Check if the update affected no rows (meaning the employee ID doesn't exist)
+    IF NOT FOUND THEN
+        -- Raise an exception manually
+        RAISE EXCEPTION 'Employee with ID % does not exist.', emp_id;
+    END IF;
+    
+EXCEPTION
+    -- Handle any exception that occurs during the update
+    WHEN OTHERS THEN
+        -- RAISE NOTICE to show a friendly error message
+        RAISE NOTICE 'An error occurred: %', SQLERRM;  -- SQLERRM holds the error message
+END;
+$$;
+
+***********************
+CALL update_salary(1, 55000);  -- This should successfully update Alice Johnson's salary
+
+CALL update_salary(99, 55000);  -- Employee ID 99 doesn't exist, so an exception will be raised
+SELECT * FROM employees;

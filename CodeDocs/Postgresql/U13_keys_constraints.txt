@@ -1,0 +1,44 @@
+Step 1: Create the authors Table
+
+CREATE TABLE authors (
+    author_id SERIAL PRIMARY KEY,  -- Primary key with auto-increment
+    name VARCHAR(100) NOT NULL UNIQUE,  -- Unique constraint to ensure no duplicate names
+    birthdate DATE CHECK (birthdate <= CURRENT_DATE)  -- Check constraint to ensure birthdate is not in the future
+);
+
+
+Step 2: Create the books Table
+
+CREATE TABLE books (
+    book_id SERIAL PRIMARY KEY,  -- Primary key for the books table
+    title VARCHAR(200) NOT NULL,  -- Title of the book, must not be null
+    author_id INT,  -- Foreign key to link to authors
+    publication_date DATE NOT NULL,  -- Publication date of the book, must not be null
+    isbn VARCHAR(13) UNIQUE,  -- Unique constraint for the ISBN number
+    pages INT CHECK (pages > 0),  -- Check constraint to ensure pages are greater than 0
+    FOREIGN KEY (author_id) REFERENCES authors(author_id)  -- Foreign key constraint
+);
+Step 3: Insert Sample Data
+-- Inserting authors
+INSERT INTO authors (name, birthdate) VALUES
+('George Orwell', '1903-06-25'),
+('J.K. Rowling', '1965-07-31'),
+('Harper Lee', '1926-04-28');
+
+-- Inserting books
+INSERT INTO books (title, author_id, publication_date, isbn, pages) VALUES
+('1984', 1, '1949-06-08', '978-0451524935', 328),
+('Harry Potter and the Philosopher\'s Stone', 2, '1997-06-26', '978-0747532699', 223),
+('To Kill a Mockingbird', 3, '1960-07-11', '978-0061120084', 281);
+Step 4: Constraints in Action
+Try to Insert a Duplicate Author Name:
+
+INSERT INTO authors (name, birthdate) VALUES ('George Orwell', '1903-06-25');
+Try to Insert a Book with a Non-existent Author:
+
+INSERT INTO books (title, author_id, publication_date, isbn, pages) VALUES
+('Some Book', 99, '2023-01-01', '978-1234567890', 150);
+Try to Insert a Book with an Invalid Page Count:
+
+INSERT INTO books (title, author_id, publication_date, isbn, pages) VALUES
+('Another Book', 1, '2023-01-01', '978-1234567891', -50);

@@ -1,0 +1,66 @@
+create schema demo;
+set search_path to demo;
+
+
+
+
+CREATE TABLE sample_data(
+name VARCHAR(2)
+);
+
+insert into sample_data values ('Dijojose');
+insert into sample_data values ('Di');
+select * from  sample_data;
+
+DROP TABLE sample_Data;
+
+
+CREATE TABLE sample_data (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100),           -- String type
+    age INT,                    -- Integer type
+    height FLOAT,               -- Floating point number
+    is_active BOOLEAN,          -- Boolean type
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Date and time
+    balance NUMERIC(10, 2)      -- Exact numeric type with precision
+);
+
+
+INSERT INTO sample_data (name, age, height, is_active, balance) VALUES
+('Alice', 30, 5.7, TRUE, 1500.50),
+('Bob', 25, 6.1, FALSE, 2000.00),
+('Charlie', 28, 5.9, TRUE, 2500.75),
+('Diana', 35, 5.4, TRUE, 3000.00);
+
+select * from sample_data;
+
+DROP TABLE sample_Data;
+
+CREATE TABLE sample_data(
+name VARCHAR(2)
+);
+
+insert into sample_data values ('Dijojose');
+insert into sample_data values ('Di');
+select * from  sample_data;
+
+
+
+
+
+
+*************************************************
+CREATE TABLE additional_data (
+    id SERIAL PRIMARY KEY,
+    email TEXT,                   -- Text type (unlimited length)
+    registration_date DATE,       -- Date type
+    binary_data BYTEA,            -- Binary data type
+    json_data JSONB               -- JSON data type (Binary JSON)
+);
+
+INSERT INTO additional_data (email, registration_date, binary_data, json_data) VALUES
+('alice@example.com', '2024-01-15', '\xDEADBEEF', '{"preferences": {"theme": "dark"}}'),
+('bob@example.com', '2024-02-20', '\xBEEFCAFE', '{"preferences": {"theme": "light"}}');
+
+select * from additional_data;
+**********************************************************

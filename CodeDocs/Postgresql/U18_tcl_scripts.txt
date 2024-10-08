@@ -1,0 +1,69 @@
+alter table roles
+drop  constraint roles_employee_id_fkey;
+drop table employees
+
+(or)
+drop table employees cascade
+
+
+************jit*****************
+select * from employees;
+-- Start another transaction
+BEGIN transaction;
+
+savepoint a;
+-- Insert more data
+INSERT INTO employees (name, salary) VALUES ('Alice Johnson', 70000);
+rollback to savepoint a;
+INSERT INTO employees (name, salary) VALUES ('Bob Williams', 80000);
+
+-- Simulate an error and rollback
+commit; 
+end
+
+
+
+
+
+
+*************************************************
+
+-- Create the employees table
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC(10, 2)
+);
+
+-- Start a transaction
+BEGIN;
+
+-- Insert data into the employees table
+INSERT INTO employees (name, salary) VALUES ('John Doe', 50000);
+INSERT INTO employees (name, salary) VALUES ('Jane Smith', 60000);
+
+-- Commit the transaction
+COMMIT;
+
+-- Start another transaction
+BEGIN;
+
+-- Insert more data
+INSERT INTO employees (name, salary) VALUES ('Alice Johnson', 70000);
+INSERT INTO employees (name, salary) VALUES ('Bob Williams', 80000);
+
+-- Simulate an error and rollback
+ROLLBACK;  -- This will undo all operations since the last BEGIN
+
+-- Start a transaction with a savepoint
+BEGIN;
+
+INSERT INTO employees (name, salary) VALUES ('Sara Lee', 90000);
+SAVEPOINT my_savepoint;
+
+INSERT INTO employees (name, salary) VALUES ('Tom Brown', 95000);
+-- Simulate an error
+ROLLBACK TO my_savepoint;  -- This will undo only the last insert
+
+-- Commit the previous valid insert
+COMMIT;

@@ -1,0 +1,55 @@
+-- Create a sample employees table
+-- drop table employees;
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC(10, 2),
+    department VARCHAR(100)
+);
+
+-- Insert sample data into employees table
+INSERT INTO employees (name, salary, department) VALUES
+('John Doe', 50000, 'HR'),
+('Jane Smith', 60000, 'Engineering'),
+('Alice Johnson', 70000, 'Engineering'),
+('Bob Williams', 45000, 'Marketing'),
+('Sara Lee', 60000, 'HR');
+
+-- Example 1: Using WHERE with equality
+SELECT * FROM employees WHERE salary = 60000;
+
+-- Example 2: Using WHERE with inequality
+SELECT * FROM employees WHERE salary > 60000;
+
+-- Example 3: Using WHERE with AND condition
+SELECT * FROM employees WHERE salary > 50000 AND department = 'Engineering';
+
+-- Example 4: Using WHERE with OR condition
+SELECT * FROM employees WHERE department = 'HR' OR department = 'Marketing';
+
+-- Example 5: Using WHERE with NOT condition
+SELECT * FROM employees WHERE NOT department = 'Engineering';
+
+-- Example 6: Using WHERE with LIKE for pattern matching
+SELECT * FROM employees WHERE name LIKE 'J%';  -- Names starting with 'J'
+
+-- Example 7: Using WHERE with ILIKE for case-insensitive pattern matching
+SELECT * FROM employees WHERE name ILIKE 'j%';  -- Names starting with 'j' (case insensitive)
+
+-- Example 8: Using WHERE with IN for matching against a list
+SELECT * FROM employees WHERE department IN ('HR', 'Engineering');
+
+-- Example 9: Using WHERE with BETWEEN for range matching
+SELECT * FROM employees WHERE salary BETWEEN 50000 AND 70000;
+
+-- Example 10: Using WHERE with IS NULL
+SELECT * FROM employees WHERE department IS NULL;
+
+-- Example 11: Using WHERE with EXISTS (assuming a dependent subquery)
+-- show in for the below option, so that students understand
+SELECT * FROM employees e WHERE EXISTS (
+    SELECT 1 FROM employees WHERE department = e.department AND salary > 60000
+);
+SELECT * FROM employees e WHERE name IN (
+    SELECT name FROM employees WHERE department = e.department AND salary > 60000
+);

@@ -1,0 +1,53 @@
+1. Creating Tables (DDL)
+-- Create departments table
+CREATE TABLE departments (
+    department_id SERIAL PRIMARY KEY,
+    department_name VARCHAR(100)
+);
+
+-- Create employees table
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    department_id INT,
+    salary NUMERIC(10, 2),
+    FOREIGN KEY (department_id) REFERENCES departments(department_id)
+);
+2. Inserting Sample Data
+-- Insert data into departments
+INSERT INTO departments (department_name)
+VALUES
+    ('HR'),
+    ('Engineering'),
+    ('Marketing');
+
+-- Insert data into employees
+INSERT INTO employees (name, department_id, salary)
+VALUES
+    ('John Doe', 1, 50000),
+    ('Jane Smith', 2, 70000),
+    ('Alice Johnson', 2, 80000),
+    ('Bob Williams', 3, 45000),
+    ('Sara Lee', 1, 60000);
+3. Example of EXISTS Clause
+Query: Find all departments that have employees
+SELECT department_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.department_id = d.department_id
+);
+SELECT department_name
+FROM departments d
+WHERE EXISTS (
+    SELECT 1
+    FROM employees e
+    WHERE e.department_id = d.department_id
+    AND e.name ILIKE 'A%'
+);
+
+4. Example of ILIKE Clause
+SELECT name, salary
+FROM employees
+WHERE name ILIKE 'j%';

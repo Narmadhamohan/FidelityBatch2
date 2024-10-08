@@ -1,0 +1,134 @@
+
+CREATE TABLE book_sales (
+    sale_id SERIAL PRIMARY KEY,
+    book_title VARCHAR(100) NOT NULL,
+    quantity_sold INT NOT NULL,
+    sale_date DATE NOT NULL
+);
+INSERT INTO book_sales (book_title, quantity_sold, sale_date) VALUES
+('The Great Gatsby', 10, '2024-01-01'),
+('1984', 5, '2024-01-05'),
+('Head First Java', 8, '2024-01-10'),
+('The Great Gatsby', 7, '2024-01-15'),
+('1984', 10, '2024-01-20'),
+('The Catcher in the Rye', 4, '2024-01-25'),
+('Head First Java', 6, '2024-01-30');
+
+
+select count(*) from book_sales;
+select sum(quantity_sold) from book_sales;
+select avg(quantity_sold) from book_sales;
+select max(quantity_sold) from book_sales;
+select min(quantity_sold) from book_sales;
+
+
+
+select book_title,sum(quantity_sold) as sold from book_sales
+group by book_title;
+
+
+*********************
+
+To order the results by total sales in descending order:
+
+
+SELECT book_title, 
+       SUM(quantity_sold) AS total_sold 
+FROM book_sales 
+GROUP BY book_title
+HAVING SUM(quantity_sold) > 10
+ORDER BY total_sold DESC;
+
+****************************************************************************
+
+
+
+
+
+
+
+
+, we will create a sales table to analyze sales data by employee and department, 
+calculating the average sales per employee within each department.
+
+Table Creation:
+
+-- Create the sales table
+CREATE TABLE sales (
+    sale_id SERIAL PRIMARY KEY,
+    employee_name VARCHAR(100) NOT NULL,
+    department VARCHAR(50) NOT NULL,
+    sale_amount NUMERIC(10, 2) NOT NULL,
+    sale_date DATE NOT NULL
+);
+Sample Data Insertion
+-- Insert sample data into the sales table
+INSERT INTO sales (employee_name, department, sale_amount, sale_date) VALUES
+('Alice', 'Sales', 1500.00, '2024-01-01'),
+('Bob', 'Sales', 2000.00, '2024-01-05'),
+('Alice', 'Sales', 1800.00, '2024-01-10'),
+('Cathy', 'HR', 3000.00, '2024-01-02'),
+('David', 'HR', 2500.00, '2024-01-06'),
+('Eve', 'IT', 3500.00, '2024-01-03'),
+('Frank', 'IT', 4000.00, '2024-01-07'),
+('Alice', 'Sales', 2200.00, '2024-01-15');
+
+-- Calculate the average sales amount per employee within their department
+SELECT
+    employee_name,
+    department,
+    sale_amount,
+    AVG(sale_amount) OVER (PARTITION BY department ORDER BY sale_date) AS average_sales
+FROM
+    sales
+ORDER BY
+    department, employee_name, sale_date;
+
+*************************************************************************************
+-- not needed
+
+CREATE TABLE book_sales (
+    sale_id SERIAL PRIMARY KEY,
+    book_title VARCHAR(100) NOT NULL,
+    quantity_sold INT NOT NULL,
+    sale_date DATE NOT NULL
+);
+
+
+
+INSERT INTO book_sales (book_title, quantity_sold, sale_date) VALUES
+('The Great Gatsby', 10, '2024-01-01'),
+('1984', 5, '2024-01-05'),
+('Head First Java', 8, '2024-01-10'),
+('The Great Gatsby', 7, '2024-01-15'),
+('1984', 10, '2024-01-20'),
+('The Catcher in the Rye', 4, '2024-01-25'),
+('Head First Java', 6, '2024-01-30');
+**************************************
+Using GROUP BY to Summarize Sales by Book Title
+
+SELECT book_title, 
+       SUM(quantity_sold) AS total_sold 
+FROM book_sales 
+GROUP BY book_title;
+
+
+**************************************
+To find books that have sold more than 10 copies:Having filter
+SELECT book_title, 
+       SUM(quantity_sold) AS total_sold 
+FROM book_sales 
+GROUP BY book_title
+HAVING SUM(quantity_sold) > 10;
+*******************************************************************
+To order the results by total sales in descending order:
+
+
+SELECT book_title, 
+       SUM(quantity_sold) AS total_sold 
+FROM book_sales 
+GROUP BY book_title
+HAVING SUM(quantity_sold) > 10
+ORDER BY total_sold DESC;
+
+

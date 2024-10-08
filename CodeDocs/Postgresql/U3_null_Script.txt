@@ -1,0 +1,77 @@
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price NUMERIC(10, 2),
+    quantity INT,
+    description TEXT
+);
+
+Inserting Data (Including NULL Values)
+Inserting Data into the Table
+INSERT INTO products (product_name, price, quantity, description) VALUES
+('Laptop', 999.99, 50, 'High performance laptop'),
+('Smartphone', NULL, 100, 'Latest model smartphone'),  -- price is NULL
+('Tablet', 299.99, NULL, NULL),                          -- quantity and description are NULL
+('Smartwatch', 199.99, 75, NULL);                        -- description is NULL
+
+-- always believe 
+select * from products - understand the data
+
+*******************************************************************************
+Dealing with NULL Values
+Queries Involving NULL Values
+Selecting All Products
+
+SELECT * FROM products;
+*************************************************************************
+Filtering Out NULL Values
+To retrieve only products with a non-NULL price:
+
+
+SELECT * FROM products WHERE price IS NOT NULL;
+select * from products where description is not null and price is not null;
+
+***************************************************************************
+Finding Products with NULL Values
+To retrieve products where the quantity is NULL:
+
+SELECT * FROM products WHERE quantity IS NULL;
+********************************************************************
+Using COALESCE
+To replace NULL values with a default value in the results (e.g., displaying "N/A" for NULL descriptions):
+
+sql
+Copy code
+
+select product_id, COALESCE(price, 0) from products where price is null;
+
+select product_id, COALESCE(price, 0) as price from products where price is null;
+SELECT product_name, COALESCE(description, 'N/A') AS description FROM products;
+
+
+*******************************************************************
+Counting NULL Values
+To count how many products have a NULL price:
+
+sql
+Copy code
+SELECT COUNT(*) AS null_price_count FROM products WHERE price IS NULL;
+SELECT COUNT(5) AS null_price_count FROM products WHERE price IS NULL;
+**************************************************************
+
+
+Using CASE Statement
+To categorize products based on their availability (using NULL values):
+
+sql
+Copy code
+SELECT product_name,
+       CASE 
+           WHEN quantity IS NULL THEN 'Unknown'
+           WHEN quantity > 0 THEN 'In Stock'
+           ELSE 'Out of Stock'
+       END AS availability
+FROM products;
+
+***********************************************************
+

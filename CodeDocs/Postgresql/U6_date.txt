@@ -1,0 +1,42 @@
+drop table book_Sales;
+CREATE TABLE book_sales (
+    sale_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    book_title VARCHAR(100) NOT NULL,
+    quantity_sold INT NOT NULL,
+    sale_date DATE NOT NULL
+);
+Here’s the modified sample data with a new set of Indian books:
+INSERT INTO book_sales (customer_name, book_title, quantity_sold, sale_date) VALUES
+('Ravi Kumar', 'The God of Small Things', 2, '2024-01-15'),
+('Sita Sharma', 'A Suitable Boy', 1, '2024-02-16'),
+('Meera Reddy', 'The White Tiger', 1, '2024-02-20'),
+('Ravi Kumar', 'Gitanjali', 1, '2024-03-10'),
+('Sita Sharma', 'The Blue Umbrella', 3, '2024-03-15'),
+('Meera Reddy', 'The Inheritance of Loss', 2, '2024-04-01'),
+('Ravi Kumar', 'The Guide', 1, '2024-04-05');
+
+
+SELECT *
+FROM book_sales; 
+
+******************************************************
+Using EXTRACT() to Filter by Month
+To filter records where sales occurred in February:
+
+SELECT *
+FROM book_sales
+WHERE EXTRACT(MONTH FROM sale_date) = 2;
+select * from book_sales
+where extract(day from sale_Date) = 1;
+select * from book_sales
+where extract(year from sale_Date) = 2024;
+**********************************************************
+Using TO_CHAR() to Filter by Month
+Alternatively, you can filter February sales using the TO_CHAR() function:
+
+sql
+Copy code
+SELECT *
+FROM book_sales
+WHERE TO_CHAR(sale_date, 'MM') = '02';

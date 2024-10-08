@@ -1,0 +1,100 @@
+A company needs a unique identifier for its employees. 
+How can you implement a sequence to generate unique employee IDs automatically?
+ a sequence is a special database object that generates unique numeric identifiers in a sequential manner. 
+Sequences are often used to create unique primary keys for tables.
+
+CREATE SEQUENCE employee_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE -- No minimum value restriction
+    NO MAXVALUE
+    CACHE 1;
+
+CREATE SEQUENCE employee_id_seq
+    START WITH 1                 -- Start the sequence at 1
+    INCREMENT BY 1              -- Increment by 1 for each new value
+    NO MINVALUE                 -- No minimum value restriction
+    MAXVALUE 1000               -- Set the maximum value to 1000
+    CACHE 10;                   -- Cache 10 sequence numbers in memory
+
+***********
+The CACHE option in a sequence determines how many sequence numbers are preallocated and stored in memory for faster access. Caching can significantly improve performance by reducing the number of disk I/O operations required to retrieve the next value in the sequence.
+
+CACHE 1: This means that only one sequence number is cached at a time, and each call for the next value will result in a disk access.
+CACHE N: If you set CACHE N, where N is any positive integer, PostgreSQL will preallocate N sequence numbers in memory. When you exhaust this cache, PostgreSQL will fetch the next set of N numbers from disk.
+***********************
+Inserting Data Using Sequence
+
+
+CREATE TABLE employees (
+    employee_id INT DEFAULT nextval('employee_id_seq') PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50)
+);
+
+INSERT INTO employees (name, department) VALUES
+('Alice Johnson', 'HR'),
+('Bob Smith', 'Finance'),
+('Charlie Brown', 'Engineering');
+
+SELECT * FROM employees;
+
+
+****************************************************************************
+
+
+Question:
+You want to create an easier way to access a frequently used table. 
+How can you create a synonym for that table? - no synonym in postgresql
+
+-- like a petname to shorten our friends
+DDL for Synonym
+
+CREATE SYNONYM emp FOR employees;
+-- Create a view that acts as a synonym for the employees table
+CREATE VIEW emp AS
+SELECT * FROM employees;
+
+Query to Access Synonym
+SELECT * FROM emp;
+
+
+CREATE view emp as select * from employees;
+select * from emp;
+***************************************************************************
+Question:
+The management wants a summary view of employees showing only their names and departments. 
+How can you create a view for this purpose?
+CREATE VIEW employee_summary AS
+SELECT name, department
+FROM employees;
+
+SELECT * FROM employee_summary;
+You want to update the department of an employee through the view. How can you accomplish that?
+UPDATE employee_summary
+SET department = 'Marketing'
+WHERE name = 'Alice Johnson';
+SELECT * FROM employee_summary;
+
+
+************************************************************************
+
+The company frequently queries employee data by department. 
+How can you improve query performance by creating an index?
+CREATE INDEX idx_department ON employees (department);
+SELECT * FROM employees WHERE department = 'Engineering';
+drop index idx_department
+*******************************************************************************
+To improve the performance of frequently accessed employee records, how can you cluster the employees table based on the department?
+
+
+CLUSTER employees USING idx_department;
+SELECT * FROM employees;
+
+EXPLAIN SELECT * FROM employees WHERE department = 'Engineering';
+SELECT pg_size_pretty(pg_relation_size('employees')) AS table_size,
+       pg_size_pretty(pg_relation_size('idx_department')) AS index_size;
+cluster cannot be reverted. may use ALTER TABLE ... SET WITHOUT CLUSTER: Stops using a specific clustering but does not change the physical order.
+DROP INDEX: Removes the clustering index but does not change the physical storage of the data.
+Create New Table: A more manual method to physically reorder data without losing content by creating a new table, inserting data, and renaming it.
+

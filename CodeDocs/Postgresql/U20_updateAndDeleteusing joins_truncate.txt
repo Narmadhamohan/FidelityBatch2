@@ -1,0 +1,48 @@
+The company needs to perform two operations:
+
+UPDATE: Update the customer status to "Inactive" for customers who have no active orders.
+DELETE: Remove customers from the database who have been marked as "Inactive" 
+and haven't placed any orders in the last year.
+1. UPDATE Example (Mark Customers as Inactive)
+
+UPDATE Customers
+SET status = 'Inactive'
+FROM Orders
+WHERE Customers.customer_id = Orders.customer_id
+AND Orders.status = 'Completed';
+2. DELETE Example (Remove Inactive Customers with No Recent Orders and more than a year)	
+DELETE FROM Customers
+USING Orders
+WHERE Customers.customer_id = Orders.customer_id
+AND Customers.status = 'Inactive'
+AND Orders.order_date < NOW() - INTERVAL '1 year';
+*************************************Truncate*****************************
+TRUNCATE TABLE customers;
+The TRUNCATE command is used to quickly remove all rows from a table, resetting it without scanning the table row by row. It’s faster than DELETE for large tables, but it doesn't fire DELETE triggers.
+
+
+*************************************************************************************
+This command will remove all records from the customers table instantly, resetting it to an empty state.
+
+What Cannot Be Rolled Back in a Transaction:
+In PostgreSQL, most operations can be rolled back if they are part of a transaction. However, some operations cannot be rolled back, and those include:
+
+TRUNCATE: If issued outside of a transaction, it cannot be rolled back. But if it's part of an open transaction (BEGIN and COMMIT/ROLLBACK), it can be rolled back.
+
+DDL Statements Outside a Transaction: Data Definition Language (DDL) statements like CREATE, DROP, ALTER outside of an explicit transaction cannot be rolled back. However, if they are executed inside a transaction block, they can be.
+
+Certain ALTER SYSTEM Commands: These change the configuration of the database at a system level and cannot be rolled back once committed.
+
+COMMIT or ROLLBACK itself**: Once a transaction has been committed or rolled back, the changes are final, and you cannot undo a COMMIT or ROLLBACK.
+
+Sequences: If you modify a sequence using NEXTVAL, the operation cannot be rolled back. The sequence increment happens independently of the transaction, so even a rollback will not undo the sequence change.
+
+Vacuuming: Operations like VACUUM and ANALYZE, which clean up and optimize the database, cannot be rolled back once executed.
+
+These actions affect the database in a way that makes it impossible to revert their effects via the typical transactional mechanism.
+
+
+
+
+
+

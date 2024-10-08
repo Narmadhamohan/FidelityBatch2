@@ -1,0 +1,124 @@
+B-tree Index: Default index type; good for most general queries, supporting equality and range queries.
+Hash Index: Optimized for simple equality comparisons (=), but does not support range queries.
+GIN (Generalized Inverted Index): Ideal for full-text search, array columns, and JSONB, as it indexes multiple values per row.
+GiST (Generalized Search Tree): Useful for complex data types like geometrical shapes, and supports range queries and full-text searches.
+BRIN (Block Range INdex): Efficient for large datasets with naturally sorted columns, storing summaries of value ranges rather than every entry.
+
+1. B-tree Index (Default Index Type)
+-- Create a sample table
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50),
+    salary NUMERIC
+);
+
+-- Create a B-tree index on the department column (default index type)
+CREATE INDEX idx_department ON employees (department);
+
+-- Insert sample data
+INSERT INTO employees (name, department, salary) VALUES
+('Alice Johnson', 'HR', 50000),
+('Bob Smith', 'Finance', 60000),
+('Charlie Brown', 'Engineering', 70000),
+('David Wilson', 'HR', 52000),
+('Eve Davis', 'Engineering', 75000);
+***********************************************************************************
+2. Hash index
+-- Create a hash index on the name column
+CREATE INDEX idx_name_hash ON employees USING HASH (name);
+
+-- Insert additional sample data
+INSERT INTO employees (name, department, salary) VALUES
+('Frank Miller', 'Finance', 58000),
+('Grace Lee', 'HR', 51000);
+
+**********************************************************************************
+3. GIN (Generalized Inverted Index)
+
+-- Create a table with an array column
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    tags TEXT[]
+);
+
+-- Create a GIN index on the tags column
+CREATE INDEX idx_tags ON products USING GIN (tags);
+
+-- Insert sample data
+INSERT INTO products (name, tags) VALUES
+('Laptop', ARRAY['electronics', 'computers']),
+('Chair', ARRAY['furniture', 'office']),
+('Desk', ARRAY['furniture', 'office']),
+('Smartphone', ARRAY['electronics', 'mobile', 'gadgets']);
+******************************************************************************
+4. GiST (Generalized Search Tree)
+
+
+-- Create a table with a geometric data type
+CREATE TABLE locations (
+    location_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    geom GEOMETRY(Point, 4326)
+);
+
+-- Create a GiST index on the geom column
+CREATE INDEX idx_geom ON locations USING GiST (geom);
+
+-- Insert sample data
+INSERT INTO locations (name, geom) VALUES
+('Point A', ST_SetSRID(ST_MakePoint(1.0, 1.0), 4326)),
+('Point B', ST_SetSRID(ST_MakePoint(2.0, 2.0), 4326)),
+('Point C', ST_SetSRID(ST_MakePoint(3.0, 3.0), 4326));
+********************************************************************************
+
+5. BRIN (Block Range INdex)
+
+
+-- Create a table with a date column
+CREATE TABLE sales (
+    sale_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100),
+    sale_amount NUMERIC,
+    sale_date DATE
+);
+
+-- Create a BRIN index on the sale_date column
+CREATE INDEX idx_sale_date ON sales USING BRIN (sale_date);
+
+-- Insert sample data
+INSERT INTO sales (product_name, sale_amount, sale_date) VALUES
+('Product A', 100, '2024-01-01'),
+('Product B', 200, '2024-01-02'),
+('Product C', 300, '2024-02-01'),
+('Product D', 400, '2024-02-02'),
+('Product E', 500, '2024-03-01');
+**********************************************************************
+6. SP-GiST (Space-Partitioned Generalized Search Tree)
+-- Create a table with a point data type
+CREATE TABLE points (
+    point_id SERIAL PRIMARY KEY,
+    point GEOGRAPHY(Point)
+);
+
+-- Create an SP-GiST index on the point column
+CREATE INDEX idx_point ON points USING SPGIST (point);
+
+-- Insert sample data
+INSERT INTO points (point) VALUES
+(ST_GeogFromText('POINT(-73.935242 40.730610)'),  -- New York
+ ST_GeogFromText('POINT(-118.243683 34.052235)'), -- Los Angeles
+ ST_GeogFromText('POINT(-0.127758 51.507351'));    -- London
+*******************************************************************
+
+
+SELECT 
+    schemaname AS schema,
+    tablename AS table,
+    indexname AS index_name,
+    indexdef AS index_definition
+FROM 
+    pg_indexes
+WHERE 
+    tablename = 'employees';  -- Change 'employees' to your table name

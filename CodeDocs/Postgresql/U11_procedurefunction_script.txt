@@ -1,0 +1,108 @@
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC
+);
+
+-- Insert sample data
+INSERT INTO employees (name, salary) VALUES
+('Alice Johnson', 50000),
+('Bob Smith', 60000),
+('Charlie Brown', 70000);
+***********************************************************************************
+Create a Simple Function to Calculate Yearly Bonus
+
+CREATE OR REPLACE FUNCTION calculate_bonus(emp_salary NUMERIC, bonus_percent NUMERIC)
+RETURNS NUMERIC AS $$
+BEGIN
+    -- Calculate bonus as salary * bonus percentage
+    RETURN emp_salary * (bonus_percent / 100);
+END;
+$$ LANGUAGE plpgsql;
+
+query to call function:
+
+SELECT name, salary, calculate_bonus(salary, 10) AS yearly_bonus
+FROM employees;
+
+**********************************************************************************
+procedure:
+
+Create a Simple Procedure to Update Salary
+sql
+Copy code
+CREATE OR REPLACE PROCEDURE increase_salary(emp_id INT, increase_percent NUMERIC)
+LANGUAGE plpgsql AS $$
+BEGIN
+    -- Update the salary of the employee by increasing it by the given percentage
+    UPDATE employees
+    SET salary = salary + (salary * (increase_percent / 100))
+    WHERE employee_id = emp_id;
+END;
+$$;
+
+
+CALL increase_salary(1, 10);  -- Increases Alice Johnson's salary by 10%
+SELECT * FROM employees;
+*****************************************************************************
+procedure_cursor
+
+
+
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC,
+    bonus NUMERIC DEFAULT 0  -- Initially, all employees have no bonus
+);
+
+-- Insert sample data
+INSERT INTO employees (name, salary) VALUES
+('Alice Johnson', 50000),
+('Bob Smith', 60000),
+('Charlie Brown', 30000),
+('David Wilson', 40000),
+('Eve Davis', 80000);
+
+
+CREATE OR REPLACE PROCEDURE apply_bonus(threshold_salary NUMERIC, bonus_amount NUMERIC)
+LANGUAGE plpgsql AS $$
+DECLARE
+    emp_record RECORD;  -- Declare a record to hold each employee row fetched by the cursor
+    emp_cursor CURSOR FOR  -- Declare the cursor to select employees below the salary threshold
+        SELECT employee_id, name, salary FROM employees WHERE salary < threshold_salary;
+BEGIN
+    -- Open the cursor to begin fetching rows
+    OPEN emp_cursor;
+    
+    -- Loop through the rows fetched by the cursor
+    LOOP
+        -- Fetch each row into emp_record
+        FETCH emp_cursor INTO emp_record;
+        
+        -- Exit the loop when no more rows are returned
+        EXIT WHEN NOT FOUND;
+        
+        -- Update the employee's bonus based on the cursor's fetched data
+        UPDATE employees
+        SET bonus = emp_record.bonus + bonus_amount
+        WHERE employee_id = emp_record.employee_id;
+        
+        -- Optionally, output a message for each employee who receives a bonus (for debugging or logging purposes)
+        RAISE NOTICE 'Bonus of % applied to employee % (ID: %)', bonus_amount, emp_record.name, emp_record.employee_id;
+    END LOOP;
+    
+    -- Close the cursor after processing all rows
+    CLOSE emp_cursor;
+END;
+$$;
+
+
+
+
+
+***
+CALL apply_bonus(50000, 5000);  -- Apply a bonus of 5000 to employees earning below 50,000
+SELECT * FROM employees;
+
+

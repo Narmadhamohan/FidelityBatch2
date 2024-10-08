@@ -1,0 +1,74 @@
+Step 1: Create Sample Tables
+CREATE TABLE employees_A (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC(10, 2)
+);
+
+CREATE TABLE employees_B (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100),
+    salary NUMERIC(10, 2)
+);
+Step 2: Insert Sample Data
+INSERT INTO employees_A (name, salary)
+VALUES
+    ('John Doe', 60000),
+    ('Alice Johnson', 70000),
+    ('Sara Lee', 80000);
+INSERT INTO employees_B (name, salary)
+VALUES
+    ('Bob Williams', 70000),
+    ('Jane Smith', 60000),
+    ('Sara Lee', 80000);
+
+select * from employees_A;
+select * from employees_B;
+*****************************************************************************************
+1. UNION
+-- tell participants to select 1 column and 2 columns in other table
+SELECT name, salary FROM employees_A
+UNION
+SELECT name, salary FROM employees_B;
+2. 2. UNION ALL
+SELECT name, salary FROM employees_A
+UNION ALL
+SELECT name, salary FROM employees_B;
+3.INTERSECT
+SELECT name, salary FROM employees_A
+INTERSECT
+SELECT name, salary FROM employees_B;
+
+4. EXCEPT
+
+SELECT name, salary FROM employees_A
+EXCEPT
+SELECT name, salary FROM employees_B;
+5. 5. Comparison Operators: >, <, > ALL, < ANY, > ANY
+SELECT name, salary
+FROM employees_A
+WHERE salary > 60000;
+SELECT name, salary
+FROM employees_A
+WHERE salary >= 60000;
+SELECT name, salary
+FROM employees_B
+WHERE salary < 70000;
+
+-- INSERT INTO employees_A (name, salary)
+VALUES
+    ('Dijo', 4000);
+SELECT name, salary
+FROM employees_A
+WHERE salary < ALL (SELECT salary FROM employees_B);
+
+SELECT name, salary
+FROM employees_A
+WHERE salary > ALL (SELECT salary FROM employees_B);
+SELECT name, salary
+FROM employees_B
+WHERE salary < ANY (SELECT salary FROM employees_A);
+SELECT name, salary
+FROM employees_A
+WHERE salary > ANY (SELECT salary FROM employees_B);
+

@@ -1,0 +1,70 @@
+CREATE TABLE customers (
+    customer_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price NUMERIC(10, 2) NOT NULL
+);
+
+CREATE TABLE sales (
+    sale_id SERIAL PRIMARY KEY,
+    customer_id INT REFERENCES customers(customer_id),
+    product_id INT REFERENCES products(product_id),
+    quantity INT NOT NULL,
+    sale_date DATE NOT NULL
+);
+******************************************************************
+sample data insertion
+-- Inserting customers
+INSERT INTO customers (customer_name, email) VALUES
+('John Doe', 'john@example.com'),
+('Jane Smith', 'jane@example.com'),
+('Alice Johnson', 'alice@example.com');
+
+-- Inserting products
+INSERT INTO products (product_name, price) VALUES
+('Laptop', 999.99),
+('Smartphone', 499.99),
+('Tablet', 299.99),
+('Smartwatch', 199.99);
+
+-- Inserting sales data
+INSERT INTO sales (customer_id, product_id, quantity, sale_date) VALUES
+(1, 1, 1, '2024-01-15'),
+(1, 2, 2, '2024-01-16'),
+(2, 1, 1, '2024-01-17'),
+(2, 3, 1, '2024-01-18'),
+(3, 2, 1, '2024-01-19'),
+(3, 3, 2, '2024-01-20'),
+(1, 4, 3, '2024-01-21');  -- John purchased Smartwatch
+****************************************************************************
+Using GROUP BY to Find Total Sales for Each Product
+
+SELECT p.product_name, 
+       SUM(s.quantity) AS total_sales 
+FROM products p
+JOIN sales s ON p.product_id = s.product_id
+GROUP BY p.product_name;
+
+
+******************************************************************************
+Finding Products Sold More Than a Threshold
+
+SELECT p.product_name, 
+       SUM(s.quantity) AS total_sales 
+FROM products p
+JOIN sales s ON p.product_id = s.product_id
+GROUP BY p.product_name
+HAVING SUM(s.quantity) > 2;
+**********************************************************************************
+Using Subquery to Determine Customer Purchase Counts
+
+SELECT p.product_name, 
+       COUNT(DISTINCT s.customer_id) AS customer_count 
+FROM products p
+JOIN sales s ON p.product_id = s.product_id
+GROUP BY p.product_name;

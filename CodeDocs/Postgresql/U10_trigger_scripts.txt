@@ -1,0 +1,92 @@
+A table to store employee information.
+A table to log the changes.
+A function to update  employee's salary.
+A trigger that logs the changes to another table whenever a salary update occurs.
+
+
+
+Step 1: Create the Tables
+DDL for employees Table
+sql
+Copy code
+CREATE TABLE employees (
+    employee_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    department VARCHAR(50) NOT NULL,
+    salary NUMERIC NOT NULL CHECK (salary >= 0)
+);
+DDL for salary_changes Table (to log salary changes)
+sql
+Copy code
+CREATE TABLE salary_changes (
+    change_id SERIAL PRIMARY KEY,
+    employee_id INT NOT NULL,
+    old_salary NUMERIC NOT NULL,
+    new_salary NUMERIC NOT NULL,
+    change_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
+);
+Step 2: Insert Sample Data
+sql
+Copy code
+-- Insert sample data into employees
+INSERT INTO employees (name, department, salary) VALUES
+('Alice Johnson', 'HR', 50000),
+('Bob Smith', 'Finance', 60000),
+('Charlie Brown', 'Engineering', 70000);
+Step 3: Create a Function to Update Salary
+sql
+Copy code
+CREATE OR REPLACE FUNCTION update_salary(emp_id INT, new_salary NUMERIC)
+RETURNS VOID AS $$
+DECLARE
+    old_salary NUMERIC;
+BEGIN
+    -- Get the current salary of the employee
+    SELECT salary INTO old_salary FROM employees WHERE employee_id = emp_id;
+
+    -- Update the employee's salary
+    UPDATE employees SET salary = new_salary WHERE employee_id = emp_id;
+
+    -- Log the salary change in the salary_changes table
+    INSERT INTO salary_changes (employee_id, old_salary, new_salary) 
+    VALUES (emp_id, old_salary, new_salary);
+END;
+$$ LANGUAGE plpgsql;
+Step 4: Create a Trigger
+Trigger Function
+sql
+Copy code
+CREATE OR REPLACE FUNCTION log_salary_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Log the salary change in the salary_changes table
+    INSERT INTO salary_changes (employee_id, old_salary, new_salary) 
+    VALUES (NEW.employee_id, OLD.salary, NEW.salary);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+Trigger Definition
+sql
+Copy code
+CREATE TRIGGER salary_change_trigger
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW
+WHEN (OLD.salary IS DISTINCT FROM NEW.salary) -- Only log if the salary changes
+EXECUTE FUNCTION log_salary_change();
+Step 5: Update Salary Using the Function
+Now you can update an employee's salary using the created function:
+
+sql
+Copy code
+-- Update Bob Smith's salary
+SELECT update_salary(2, 65000);  -- Update salary from 60000 to 65000
+Step 6: Querying the Tables
+View Employees
+sql
+Copy code
+SELECT * FROM employees;
+View Salary Changes Log
+sql
+Copy code
+SELECT * FROM salary_changes;

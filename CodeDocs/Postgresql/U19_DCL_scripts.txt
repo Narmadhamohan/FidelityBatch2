@@ -1,0 +1,8 @@
+-- Create a new user
+CREATE USER sample_user WITH PASSWORD 'sample_password';
+
+-- Grant permissions to the user
+GRANT SELECT, INSERT ON employees TO sample_user;
+
+-- Revoke permissions from the user
+REVOKE INSERT ON employees FROM sample_user;
