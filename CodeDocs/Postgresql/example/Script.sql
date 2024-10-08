@@ -1,5 +1,20 @@
 ***********************1*******************************
 
+create schema demo1;
+
+set search_path to demo1;    
+-- DDL -- alter table, drop
+CREATE TABLE player_details(
+player_name VARCHAR(2)
+);
+-- DQL
+select player_name from player_details;
+-- DML - update, delete
+INSERT INTO player_details
+VALUES('Dh');
+-- 
+select player_name from player_details;
+
 
 CREATE TABLE sample_data (
     id SERIAL PRIMARY KEY,
