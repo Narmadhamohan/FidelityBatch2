@@ -122,7 +122,44 @@ SELECT * FROM products
 ORDER BY price NULLS LAST, quantity NULLS FIRST;
 
 
-***********************1*******************************
+***********************4*******************************
+
+
+create table players(
+player_name VARCHAR(50),
+score int,
+country VARCHAR(50)
+);
+
+insert into players
+values
+('Dhoni',200,'India'),
+('Virat',150,'India'),
+('Dijo',250,'Aus' ),
+('Jose',100,'Aus'),
+('Anto',null,'Aus');
+insert into players
+values
+('Shantanu',null,'NZ');
+select * from players where score > 100;
+
+select country,COALESCE(SUM(score),0) as sum_val from players
+group by country;
+
+
+
+
+select country,SUM(score) from players
+where score > 200
+group by country
+having SUM(score) >100;
+
+select * from players;
+
+select country from players
+where score > 100
+group by country
+having SUM(score) >100;
 
 
 
