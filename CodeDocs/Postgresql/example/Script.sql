@@ -47,8 +47,57 @@ INSERT INTO additional_data (email, registration_date, binary_data, json_data) V
 
 select * from additional_data;
 
-***********************1*******************************
+***********************2*******************************
+-- null handling
+create schema demo1;
 
+set search_path to demo1;
+
+CREATE TABLE products (
+    product_id SERIAL PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    price NUMERIC(10, 2),
+    quantity INT,
+    description TEXT
+);
+
+
+INSERT INTO products (product_name, price, quantity, description) VALUES
+('Laptop', 999.99, 50, 'High performance laptop'),
+('Smartphone', NULL, 100, 'Latest model smartphone'),  -- price is NULL
+('Tablet', 299.99, NULL, NULL),                          -- quantity and description are NULL
+('Smartwatch', 199.99, 75, NULL);                        -- description is NULL
+
+update products
+set description='High performance and latest model laptop'
+where product_id = 1;
+
+delete from products
+where product_id =2;
+
+select * from products;
+
+
+
+
+select * from products;
+
+SELECT * FROM products WHERE price IS NOT NULL;
+select * from products where description is not null and price is not null;
+
+select product_id, COALESCE(price, 0) as price from products where price is null;
+SELECT product_name, COALESCE(description, 'N/A') as description FROM products;
+
+
+
+
+SELECT COUNT(*) AS quantity_empty FROM products WHERE quantity IS NULL;
+SELECT COUNT(6) AS null_price_count FROM products WHERE price IS NULL;
+
+select * from products;
+
+
+SELECT COUNT(*) as total_records FROM products;
 
 
 ***********************1*******************************
