@@ -100,9 +100,26 @@ select * from products;
 SELECT COUNT(*) as total_records FROM products;
 
 
-***********************1*******************************
+***********************3*******************************
+
+--   Order by
+
+select * from products order by price ASC;
+select * from products order by price DESC;
+select * from products order by quantity DESC;
 
 
+SELECT * FROM products
+ORDER BY quantity NULLS FIRST;  -- NULLs will be at the beginning
+
+SELECT * FROM products
+ORDER BY price DESC NULLS LAST;  -- NULLs will be at the end
+
+SELECT * FROM products
+ORDER BY price ASC, quantity DESC;
+
+SELECT * FROM products
+ORDER BY price NULLS LAST, quantity NULLS FIRST;
 
 
 ***********************1*******************************
