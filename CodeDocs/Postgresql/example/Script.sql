@@ -242,7 +242,27 @@ select * from employees
 where employee_id=(select employee_id from employees where name = 'John Doe');
 
 
+set search_path to demo1;
 
+select count(1) from products;
+
+select product_id, product_name from products 
+where price in (select price from products);
+
+select * from products;
+select product_name from products  p
+where  exists (select 1 from products where price is not null);
+
+
+       
+    
+SELECT product_name,
+       CASE 
+           WHEN quantity IS NULL THEN 'Unknown'
+           WHEN quantity > 0 THEN 'In Stock'
+           ELSE 'Out of Stock'
+       END AS availability
+FROM products;
 
 ***********************1*******************************
 
