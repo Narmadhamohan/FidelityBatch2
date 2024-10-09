@@ -264,7 +264,192 @@ SELECT product_name,
        END AS availability
 FROM products;
 
-***********************1*******************************
+***********************6(Oct-09-2024)*******************************
+set search_path to demo1;
+
+select product_name,count(1) from products;
+
+select product_id, product_name from products 
+where price in (select price from products);
+
+select * from products;
+select product_name from products  p
+where  exists (select 1 from products where price is not null);
+
+
+       
+    
+SELECT product_name,
+       CASE 
+           WHEN quantity IS NULL THEN 'Unknown'
+           WHEN quantity > 0 THEN 'In Stock'
+           ELSE 'Out of Stock'
+       END AS availability
+FROM products;
+
+create table newPlayers as
+select * from players;
+truncate table newPlayers; 
+select * from newPlayers;
+
+insert into newPlayers
+select * from players;
+
+delete from newPlayers where player_name = 'Dhoni';
+
+select distinct player_name,score from players; -- unique records
+
+
+select player_name, score,
+RANK() over (partition by country order by score desc)   from players;
+
+select player_name ,
+RANK() over(partition by country order by score desc)
+from players;
+
+select * from players;
+
+select country,sum(score) from players
+group by country;
+
+WITH - clause - CTE - Common Table expressions: 
+
+WITH high_Score_members as(
+-- logic
+) select   from high_Score_members;
+
+
+
+with ranked_players AS(
+select player_name ,
+RANK() over(partition by country order by score desc) as rank_recieved
+from players
+)
+select player_name from ranked_players where 
+rank_recieved = 1;
+
+
+select * from players
+where score is not null
+order by score desc limit 3 offset 1;
+
+-- Date
+
+
+drop table book_Sales;
+CREATE TABLE book_sales (
+    sale_id SERIAL PRIMARY KEY,
+    customer_name VARCHAR(100) NOT NULL,
+    book_title VARCHAR(100) NOT NULL,
+    quantity_sold INT NOT NULL,
+    sale_date DATE NOT NULL
+);
+
+INSERT INTO book_sales (customer_name, book_title, quantity_sold, sale_date) VALUES
+('Ravi Kumar', 'The God of Small Things', 2, '2024-01-15'),
+('Sita Sharma', 'A Suitable Boy', 1, '2024-02-16'),
+('Meera Reddy', 'The White Tiger', 1, '2024-02-20'),
+('Ravi Kumar', 'Gitanjali', 1, '2024-03-10'),
+('Sita Sharma', 'The Blue Umbrella', 3, '2024-03-15'),
+('Meera Reddy', 'The Inheritance of Loss', 2, '2024-04-01'),
+('Ravi Kumar', 'The Guide', 1, '2024-04-05');
+
+
+SELECT *
+FROM book_sales; 
+
+-- ******************************************************
+-- Using EXTRACT() to Filter by Month
+-- To filter records where sales occurred in February:
+
+SELECT *
+FROM book_sales
+WHERE EXTRACT(MONTH FROM sale_date) = 2;
+select * from book_sales
+where extract(day from sale_Date) = 1;
+select * from book_sales
+where extract(year from sale_Date) = 2024;
+**********************************************************
+-- Using TO_CHAR() to Filter by Month
+-- Alternatively, you can filter February sales using the TO_CHAR() function:
+
+
+SELECT *
+FROM book_sales
+WHERE TO_CHAR(sale_date, 'MM') = '02';
+
+
+
+SELECT *
+FROM book_sales
+WHERE TO_CHAR(sale_date, 'DD') = '16';
+
+SELECT *
+FROM book_sales
+WHERE TO_CHAR(sale_date, 'YYYY') = '2024';
+
+
+SELECT CURRENT_DATE,
+CURRENT_DATE + INTERVAL '5 days'
+as future_date;
+
+
+SELECT CURRENT_TIMESTAMP,
+CURRENT_TIMESTAMP - INTERVAL '3 hours'
+as past_timestamp;
+
+select * from players;	
+-- 1 case
+-- username, password
+-- score
+Employees
+
+CREATE VIEW emp_view AS
+SELECT EmployeeID, Name, Salary
+FROM Employees
+WHERE Salary > 50000;
+
+-- join, no proper unique id - update,delete is not possible
+
+
+
+CREATE SEQUENCE employee_id_seq
+    START WITH 1                 -- Start the sequence at 1
+    INCREMENT BY 1              -- Increment by 1 for each new value
+    NO MINVALUE                 -- No minimum value restriction
+    MAXVALUE 1000               -- Set the maximum value to 1000
+    CACHE 10;                   -- Cache 10 sequence numbers in memory
+
+CREATE TABLE employees (
+    employee_id INT DEFAULT nextval('employee_id_seq') PRIMARY KEY,
+    name VARCHAR(100),
+    department VARCHAR(50)
+);
+
+INSERT INTO employees (name, department) VALUES
+('Alice Johnson', 'HR'),
+('Bob Smith', 'Finance'),
+('Charlie Brown', 'Engineering');
+
+SELECT * FROM employees;
+
+-- CREATE SYNONYM emp FOR employees;
+
+-- The management wants a summary view of employees showing 
+-- only their names and departments. 
+-- How can you create a view for this purpose?
+
+select * from employees;
+CREATE VIEW employee_summary AS
+SELECT name, department
+FROM employees;
+select * from employee_summary;
+
+
+CREATE INDEX idx_department ON employees (department);
+SELECT * FROM employees WHERE department = 'Engineering';
+drop index idx_department;
+
 
 
 
