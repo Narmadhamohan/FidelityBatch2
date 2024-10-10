@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asymmetric Encryption and RSA Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        h2 {
+            color: #333;
+        }
+        p, ul {
+            margin: 10px 0;
+        }
+        .key-concept {
+            background-color: #e7f3fe;
+            padding: 10px;
+            border-left: 6px solid #2196F3;
+            margin: 10px 0;
+        }
+        .example {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .conclusion {
+            background-color: #f0f8ff;
+            border-left: 6px solid #2196F3;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Asymmetric Encryption and RSA Algorithm</h1>
+
+<p>The choice of multiplication or division in asymmetric encryption isn't something Alice or Bob directly decides; it depends on the mathematical operations and algorithms used in the cryptographic system they choose (e.g., RSA). Here’s how it works:</p>
+
+<div class="key-concept">
+    <strong>Key Concept: Public and Private Key Functions</strong>
+    <ul>
+        <li><strong>Encryption:</strong> Performed using the public key and typically involves some form of mathematical operation (e.g., exponentiation or multiplication).</li>
+        <li><strong>Decryption:</strong> Performed using the private key and reverses the encryption operation (which might feel like division but is actually modular arithmetic in most cases).</li>
+    </ul>
+</div>
+
+<h2>Example with RSA (Rivest-Shamir-Adleman) Algorithm:</h2>
+<p>RSA is one of the most well-known asymmetric encryption algorithms. Here’s what happens behind the scenes:</p>
+
+<h3>Key Generation:</h3>
+<ul>
+    <li>Alice generates her public key and private key using large prime numbers and mathematical operations (modular arithmetic).</li>
+</ul>
+
+<h3>Encryption:</h3>
+<ul>
+    <li>Bob uses Alice’s public key to encrypt a message.</li>
+    <li>The encryption process involves raising the message to the power of a part of the public key and then performing modular multiplication.</li>
+</ul>
+
+<h3>Decryption:</h3>
+<ul>
+    <li>Alice uses her private key to decrypt the message.</li>
+    <li>Decryption involves a reverse operation, which is similar to division but actually done using modular exponentiation.</li>
+</ul>
+
+<div class="example">
+    <strong>Why Multiplication and Division Seem Involved:</strong>
+    <ul>
+        <li>While it looks like multiplication and division (as in the simplified example), in reality, most asymmetric algorithms rely on:</li>
+        <li><strong>Modular arithmetic:</strong> Working with large numbers and calculating remainders after division by a prime number (called a modulus).</li>
+        <li><strong>Exponentiation:</strong> Raising numbers to powers during encryption and reversing this during decryption using a special process.</li>
+    </ul>
+</div>
+
+<h3>Example of RSA Simplified:</h3>
+<ul>
+    <li><strong>Encryption:</strong> Bob might compute something like:</li>
+    <div class="example">
+        <strong>Ciphertext = (Message<sup>public key</sup>) mod N</strong>
+    </div>
+    <li>Where <strong>N</strong> is a product of two prime numbers.</li>
+</ul>
+
+<ul>
+    <li><strong>Decryption:</strong> Alice will use her private key to reverse this:</li>
+    <div class="example">
+        <strong>Message = (Ciphertext<sup>private key</sup>) mod N</strong>
+    </div>
+    <li>This ensures that only Alice, with her private key, can reverse the encryption done by Bob using the public key.</li>
+</ul>
+
+<div class="conclusion">
+    <strong>Conclusion:</strong>
+    <ul>
+        <li>Multiplication and division are simplified ways to explain the concepts, but the actual operations depend on the encryption algorithm.</li>
+        <li>In algorithms like RSA, modular exponentiation is used rather than simple multiplication or division.</li>
+        <li>Bob and Alice don’t manually choose the operation; it’s determined by the encryption algorithm they use (like RSA).</li>
+    </ul>
+</div>
+
+</body>
+</html>
