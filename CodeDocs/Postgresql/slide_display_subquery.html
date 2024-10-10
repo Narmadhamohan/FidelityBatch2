@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correlated Subquery Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .code-block {
+            background-color: #f4f4f4;
+            border-left: 4px solid #ccc;
+            padding: 10px;
+            margin: 20px 0;
+            white-space: pre;
+            font-family: "Courier New", Courier, monospace;
+        }
+        table {
+            width: 50%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Demonstrating Correlated Subquery in SQL</h1>
+
+    <p>This page demonstrates the concept of correlated subqueries using a <strong>products</strong> table example. A correlated subquery refers to the outer query, and it is executed once for each row processed by the outer query.</p>
+
+    <h2>Step 1: Create the Products Table (DDL)</h2>
+    <div class="code-block">
+        CREATE TABLE products ( <br>
+        &nbsp;&nbsp;product_id SERIAL PRIMARY KEY, <br>
+        &nbsp;&nbsp;product_name VARCHAR(50), <br>
+        &nbsp;&nbsp;price DECIMAL(10, 2) <br>
+        );
+    </div>
+
+    <h2>Step 2: Insert Sample Data into Products</h2>
+    <div class="code-block">
+        INSERT INTO products (product_name, price) VALUES <br>
+        &nbsp;&nbsp;('Laptop', 1000.00), <br>
+        &nbsp;&nbsp;('Phone', 500.00), <br>
+        &nbsp;&nbsp;('Tablet', 500.00), <br>
+        &nbsp;&nbsp;('Monitor', 300.00), <br>
+        &nbsp;&nbsp;('Keyboard', 50.00);
+    </div>
+
+    <h2>Step 3: Correlated Subquery Example</h2>
+    <p>This query selects products that have the same price as another product in the <strong>products</strong> table. The subquery is correlated because it refers to the <code>p.price</code> from the outer query.</p>
+
+    <div class="code-block">
+        SELECT product_name <br>
+        FROM products p <br>
+        WHERE EXISTS (SELECT 1 <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;FROM products p2 <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;WHERE p2.price = p.price AND p2.product_id != p.product_id);
+    </div>
+
+    <h2>Explanation:</h2>
+    <p>The subquery checks for each row in the outer query if another product exists with the same price but a different <code>product_id</code> (to avoid matching the same row).</p>
+
+    <h2>Step 4: Results</h2>
+    <p>Based on the inserted data, the query will return products with non-unique prices:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>product_name</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Phone</td>
+            </tr>
+            <tr>
+                <td>Tablet</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>Key Points to Discuss:</h2>
+    <ul>
+        <li>The subquery references the outer query using <code>p.price</code>, making it correlated.</li>
+        <li>The query helps find products that share the same price with at least one other product.</li>
+        <li>The <code>EXISTS</code> clause is used to check if at least one row from the subquery satisfies the condition.</li>
+    </ul>
+
+</body>
+</html>

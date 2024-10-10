@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PostgreSQL Return Types for Functions and Procedures</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        pre {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        ul {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+<h1>PostgreSQL Return Types for Functions and Procedures</h1>
+
+<h2>1. RETURN QUERY</h2>
+<p>
+    The <strong>RETURN QUERY</strong> statement is used in PL/pgSQL functions to return the result of a query directly as a result set.
+</p>
+<pre><code>
+CREATE OR REPLACE FUNCTION get_employees()
+RETURNS TABLE(employee_id INT, name TEXT, salary NUMERIC) AS $$
+BEGIN
+    RETURN QUERY SELECT id, name, salary FROM employees;
+END;
+$$ LANGUAGE plpgsql;
+</code></pre>
+
+<h2>2. RETURN NEXT</h2>
+<p>
+    The <strong>RETURN NEXT</strong> statement returns rows one at a time from a PL/pgSQL function, often used within loops.
+</p>
+<pre><code>
+CREATE OR REPLACE FUNCTION get_employee_by_id(emp_id INT)
+RETURNS SETOF employees AS $$
+DECLARE
+    emp_record employees%ROWTYPE;
+BEGIN
+    SELECT * INTO emp_record FROM employees WHERE id = emp_id;
+    RETURN NEXT emp_record;
+END;
+$$ LANGUAGE plpgsql;
+</code></pre>
+
+<h2>3. RETURNS TABLE</h2>
+<p>
+    The <strong>RETURNS TABLE</strong> clause allows defining the structure of the result set returned by the function.
+</p>
+<pre><code>
+CREATE OR REPLACE FUNCTION get_high_salary_employees(min_salary NUMERIC)
+RETURNS TABLE(employee_id INT, name TEXT, salary NUMERIC) AS $$
+BEGIN
+    RETURN QUERY SELECT id, name, salary FROM employees WHERE salary > min_salary;
+END;
+$$ LANGUAGE plpgsql;
+</code></pre>
+
+<h2>Do Procedures Return Anything?</h2>
+<p>
+    In PostgreSQL, <strong>procedures</strong> (created using <code>CREATE PROCEDURE</code>) do not return a value. Instead, they are designed for performing actions (like modifying data) without providing a result set or return type.
+</p>
+<p>
+    You can use <code>RAISE NOTICE</code> to output messages for logging or debugging within procedures, but they do not return values like functions do.
+</p>
+
+</body>
+</html>
