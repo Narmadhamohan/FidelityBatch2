@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Networking Topics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 20px;
+            background-color: #f5f5f5; /* Light gray background */
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            color: #333;
+            background-color: #ffffff; /* White background for sections */
+            border: 1px solid #ccc; /* Light border */
+        }
+
+        h2 {
+            background: linear-gradient(135deg, #6a8caf, #4a637a); /* Gradient color for headings */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            padding: 10px 0;
+        }
+
+        ul {
+            list-style-type: disc;
+            margin: 10px 0 10px 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Networking Topics</h1>
+
+    <div class="section">
+        <h2>TCP Model / IP Model</h2>
+        <ul>
+            <li>The <strong>TCP/IP Model</strong> is a foundational network model that governs data transmission over the Internet.</li>
+            <li>It consists of four layers: Application, Transport, Internet, and Link.</li>
+            <li>The model facilitates communication between diverse systems and networks.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>ARPANet Architecture</h2>
+        <ul>
+            <li><strong>ARPANET</strong> was the first operational packet-switching network and a precursor to the modern Internet.</li>
+            <li>It introduced key concepts such as distributed networking and the use of packet-switching technology.</li>
+            <li>ARPANET's architecture laid the groundwork for future network developments.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>IP Addresses, Classes, and CIDR Notation</h2>
+        <ul>
+            <li>An <strong>IP address</strong> is a unique identifier assigned to each device on a network, enabling communication.</li>
+            <li>IP addresses are classified into several classes based on their network size and purpose:</li>
+            <ul>
+                <li><strong>Class A</strong>: Supports 16 million hosts; ranges from 1.0.0.0 to 126.255.255.255.</li>
+                <li><strong>Class B</strong>: Supports 65,536 hosts; ranges from 128.0.0.0 to 191.255.255.255.</li>
+                <li><strong>Class C</strong>: Supports 256 hosts; ranges from 192.0.0.0 to 223.255.255.255.</li>
+                <li><strong>Class D</strong>: Used for multicast groups; ranges from 224.0.0.0 to 239.255.255.255.</li>
+                <li><strong>Class E</strong>: Reserved for future use; ranges from 240.0.0.0 to 255.255.255.255.</li>
+            </ul>
+            <li><strong>CIDR (Classless Inter-Domain Routing)</strong> notation is a method for allocating IP addresses and routing IP packets.</li>
+            <li>CIDR notation uses a suffix (e.g., /24) to indicate the number of bits used for the network prefix:</li>
+            <ul>
+                <li>For example, <strong>192.168.1.0/24</strong> means that the first 24 bits are the network part, allowing for 256 addresses in the range 192.168.1.0 to 192.168.1.255.</li>
+            </ul>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>IPv4 and IPv6</h2>
+        <ul>
+            <li><strong>IPv4</strong> (Internet Protocol version 4) uses a 32-bit address space, allowing for approximately 4.3 billion unique addresses.</li>
+            <li>IPv4 addresses are expressed in decimal format, divided into four octets (e.g., 192.168.1.1).</li>
+            <li><strong>IPv6</strong> (Internet Protocol version 6) uses a 128-bit address space, allowing for a vastly larger number of unique addresses (approximately 340 undecillion addresses).</li>
+            <li>IPv6 addresses are expressed in hexadecimal format, separated by colons (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334).</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Host Addressing, Multicast, and Broadcast</h2>
+        <ul>
+            <li><strong>Host Addressing</strong>: Refers to the specific address assigned to a device on a network, which allows it to communicate with other devices.</li>
+            <li><strong>Broadcast</strong>: A transmission method where data is sent to all devices on a network. In IPv4, the broadcast address for a subnet is typically the last address in the range.</li>
+            <li><strong>Multicast</strong>: Allows a single packet to be sent to multiple devices, but only to those that are subscribed to the multicast address.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Subnet Calculation Example</h2>
+        <ul>
+            <li>Consider the IP address <strong>192.168.1.0/24</strong>:</li>
+            <ul>
+                <li>Subnet Mask: 255.255.255.0 (indicating that the first 24 bits are the network part).</li>
+                <li>Number of Hosts: 2^(32-24) - 2 = 254 (2 addresses are reserved for network and broadcast).</li>
+                <li>Valid Host Range: 192.168.1.1 to 192.168.1.254</li>
+                <li>Broadcast Address: 192.168.1.255</li>
+            </ul>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Protocols (IP, HTTP, TCP, FTP, ARP)</h2>
+        <ul>
+            <li><strong>IP (Internet Protocol)</strong>: Responsible for addressing and routing packets across networks.</li>
+            <li><strong>HTTP (Hypertext Transfer Protocol)</strong>: Governs communication between web browsers and servers.</li>
+            <li>Common Ports for HTTP:
+                <ul>
+                    <li>Port 80 - HTTP</li>
+                    <li>Port 443 - HTTPS (HTTP Secure)</li>
+                </ul>
+            </li>
+            <li><strong>TCP (Transmission Control Protocol)</strong>: Ensures reliable data transfer and error recovery.</li>
+            <li>Common Ports for TCP:
+                <ul>
+                    <li>Port 20 - FTP Data</li>
+                    <li>Port 21 - FTP Control</li>
+                    <li>Port 22 - SSH</li>
+                    <li>Port 25 - SMTP</li>
+                    <li>Port 53 - DNS</li>
+                    <li>Port 110 - POP3</li>
+                    <li>Port 143 - IMAP</li>
+                    <li>Port 3306 - MySQL</li>
+                    <li>Port 5432 - PostgreSQL</li>
+                </ul>
+            </li>
+            <li><strong>FTP (File Transfer Protocol)</strong>: Used for transferring files between a client and server.</li>
+            <li>Common Ports for FTP:
+                <ul>
+                    <li>Port 21 - FTP Control</li>
+                    <li>Port 20 - FTP Data</li>
+                </ul>
+            </li>
+            <li><strong>ARP (Address Resolution Protocol)</strong>: Resolves IP addresses to MAC (Media Access Control) addresses.</li>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>Importance of Ports</h2>
+        <ul>
+            <li><strong>Ports</strong> are endpoints for communication, allowing multiple applications to use network resources simultaneously.</li>
+            <li>Common ports include:</li>
+            <ul>
+                <li>Port 20 - FTP Data</li>
+                <li>Port 21 - FTP Control</li>
+                <li>Port 22 - SSH</li>
+                <li>Port 25 - SMTP</li>
+                <li>Port 53 - DNS</li>
+                <li>Port 80 - HTTP</li>
+                <li>Port 110 - POP3</li>
+                <li>Port 143 - IMAP</li>
+                <li>Port 443 - HTTPS</li>
+                <li>Port 3306 - MySQL</li>
+                <li>Port 5432 - PostgreSQL</li>
+            </ul>
+        </ul>
+    </div>
+
+    <div class="section">
+        <h2>TCP & UDP Ports Difference</h2>
+        <ul>
+            <li><strong>TCP (Transmission Control Protocol)</strong> is connection-oriented, ensuring reliable and ordered delivery of data.</li>
+            <li><strong>UDP (User Datagram Protocol)</strong> is connectionless, offering faster data transmission without guaranteeing delivery.</li>
+            <li>TCP is used for applications where reliability is crucial, while UDP is suitable for real-time applications like video streaming.</li>
+            <li>Common UDP Ports:
+                <ul>
+                    <li>Port 53 - DNS</li>
+                    <li>Port 67 - DHCP Server</li>
+                    <li>Port 68 - DHCP Client</li>
+                    <li>Port 69 - TFTP</li>
+                    <li>Port 123 - NTP</li>
+                    <li>Port 161 - SNMP</li>
+                    <li>Port 162 - SNMP Trap</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
