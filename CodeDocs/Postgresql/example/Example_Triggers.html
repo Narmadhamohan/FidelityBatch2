@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triggers for Database Operations</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Example Triggers for Database Operations</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Operation</th>
+            <th>Trigger Description</th>
+            <th>Trigger Code</th>
+            <th>Example Log Entry</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>INSERT</td>
+            <td>Log new employee creation in employee_creation_logs</td>
+            <td>
+                <pre><code>
+CREATE OR REPLACE FUNCTION log_new_employee()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO employee_creation_logs (employee_id, name, salary, creation_date)
+    VALUES (NEW.employee_id, NEW.name, NEW.salary, NOW());
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER log_new_employee_trigger
+AFTER INSERT ON employees
+FOR EACH ROW EXECUTE FUNCTION log_new_employee();
+                </code></pre>
+            </td>
+            <td>
+                <strong>employee_creation_logs</strong>:<br>
+                <em>Log Created</em><br>
+                <ul>
+                    <li>employee_id: 104</li>
+                    <li>name: Alice Brown</li>
+                    <li>salary: 80000</li>
+                    <li>creation_date: [timestamp]</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>UPDATE</td>
+            <td>Log salary changes in salary_changes</td>
+            <td>
+                <pre><code>
+CREATE OR REPLACE FUNCTION log_salary_change()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO salary_changes (employee_id, old_salary, new_salary) 
+    VALUES (NEW.employee_id, OLD.salary, NEW.salary);
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER log_salary_change_trigger
+AFTER UPDATE OF salary ON employees
+FOR EACH ROW EXECUTE FUNCTION log_salary_change();
+                </code></pre>
+            </td>
+            <td>
+                <strong>salary_changes</strong>:<br>
+                <em>Log Created</em><br>
+                <ul>
+                    <li>employee_id: 101</li>
+                    <li>old_salary: 50000</li>
+                    <li>new_salary: 60000</li>
+                </ul>
+            </td>
+        </tr>
+        <tr>
+            <td>DELETE</td>
+            <td>Log employee deletion in salary_changes</td>
+            <td>
+                <pre><code>
+CREATE OR REPLACE FUNCTION log_employee_deletion()
+RETURNS TRIGGER AS $$
+BEGIN
+    INSERT INTO salary_changes (employee_id, old_salary, new_salary) 
+    VALUES (OLD.employee_id, OLD.salary, NULL);
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER log_employee_deletion_trigger
+AFTER DELETE ON employees
+FOR EACH ROW EXECUTE FUNCTION log_employee_deletion();
+                </code></pre>
+            </td>
+            <td>
+                <strong>salary_changes</strong>:<br>
+                <em>Log Created</em><br>
+                <ul>
+                    <li>employee_id: 103</li>
+                    <li>old_salary: 75000</li>
+                    <li>new_salary: NULL</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
