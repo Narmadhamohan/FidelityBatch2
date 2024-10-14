@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSL/TLS Handshake & CA Matching</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Certificate Authority Matching</h2>
+
+<!-- Root CA, Intermediate CA, and Final CA Table -->
+<table>
+    <tr>
+        <th>Certificate Authority Type</th>
+        <th>Real-Time Example</th>
+    </tr>
+    <tr>
+        <td>Root CA</td>
+        <td><input type="text" id="root-ca" placeholder="Enter Root CA"></td>
+    </tr>
+    <tr>
+        <td>Intermediate CA</td>
+        <td><input type="text" id="intermediate-ca" placeholder="Enter Intermediate CA"></td>
+    </tr>
+    <tr>
+        <td>Final CA (End-Entity Certificate)</td>
+        <td><input type="text" id="final-ca" placeholder="Enter Final CA"></td>
+    </tr>
+</table>
+
+<button onclick="checkCA()">Check CA</button>
+
+<!-- Section to show the answers -->
+<div id="ca-result" class="hidden">
+    <h4>Correct Certificate Authority Matches</h4>
+    <p><b>Root CA:</b> DigiCert, Let's Encrypt, GlobalSign</p>
+    <p><b>Intermediate CA:</b> DigiCert Intermediate RSA CA G2, Let's Encrypt Authority X3</p>
+    <p><b>Final CA (End-Entity):</b> example.com (a website's final certificate issued to the server)</p>
+</div>
+
+<h2>TLS/SSL Handshake Process - Question and Answer</h2>
+
+<!-- TLS Handshake Questions -->
+<table>
+    <tr>
+        <th>Question</th>
+        <th>Answer</th>
+    </tr>
+    <tr>
+        <td>1. What is the first step in the TLS handshake?</td>
+        <td><input type="text" id="handshake-step1" placeholder="Enter answer"></td>
+    </tr>
+    <tr>
+        <td>2. What happens when the server sends its certificate?</td>
+        <td><input type="text" id="handshake-step2" placeholder="Enter answer"></td>
+    </tr>
+    <tr>
+        <td>3. How does the client verify the server’s certificate?</td>
+        <td><input type="text" id="handshake-step3" placeholder="Enter answer"></td>
+    </tr>
+    <tr>
+        <td>4. How is the symmetric key established?</td>
+        <td><input type="text" id="handshake-step4" placeholder="Enter answer"></td>
+    </tr>
+</table>
+
+<button onclick="checkHandshake()">Check Handshake</button>
+
+<!-- Section to show the handshake answers -->
+<div id="handshake-result" class="hidden">
+    <h4>Correct TLS/SSL Handshake Process</h4>
+    <p><b>Step 1:</b> Client sends a "ClientHello" message with supported cipher suites.</p>
+    <p><b>Step 2:</b> Server responds with a "ServerHello" and sends its certificate.</p>
+    <p><b>Step 3:</b> The client verifies the server's certificate by checking the chain of trust (Root CA, Intermediate CA, Final CA).</p>
+    <p><b>Step 4:</b> A symmetric key is established using either Diffie-Hellman or RSA encryption, depending on the negotiated cipher suite.</p>
+</div>
+
+<h2>Real-Time Example of Certificate Use Cases</h2>
+
+<table>
+    <tr>
+        <th>Protocol</th>
+        <th>Example Website or Service</th>
+    </tr>
+    <tr>
+        <td>HTTPS</td>
+        <td><input type="text" id="protocol-https" placeholder="Enter website"></td>
+    </tr>
+    <tr>
+        <td>SMTPS</td>
+        <td><input type="text" id="protocol-smtps" placeholder="Enter service"></td>
+    </tr>
+    <tr>
+        <td>FTPS</td>
+        <td><input type="text" id="protocol-ftps" placeholder="Enter service"></td>
+    </tr>
+</table>
+
+<button onclick="checkProtocolUsage()">Check Protocol Usage</button>
+
+<!-- Section to show the protocol answers -->
+<div id="protocol-result" class="hidden">
+    <h4>Correct Real-Time Protocol Examples</h4>
+    <p><b>HTTPS:</b> Used in secure websites like https://www.google.com</p>
+    <p><b>SMTPS:</b> Used in secure email services like Gmail and Outlook.</p>
+    <p><b>FTPS:</b> Used in secure file transfer services like FileZilla FTPS.</p>
+</div>
+
+<script>
+    function checkCA() {
+        document.getElementById('ca-result').classList.remove('hidden');
+    }
+
+    function checkHandshake() {
+        document.getElementById('handshake-result').classList.remove('hidden');
+    }
+
+    function checkProtocolUsage() {
+        document.getElementById('protocol-result').classList.remove('hidden');
+    }
+</script>
+
+</body>
+</html>
